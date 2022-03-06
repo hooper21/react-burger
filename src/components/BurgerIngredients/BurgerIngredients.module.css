@@ -1,0 +1,25 @@
+
+.tabs {
+    display: flex;
+    flex-direction: row; 
+    justify-self: flex-end;
+    width: fit-content;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+}
+
+.card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,24 @@
+.card {
+    display: block;
+    text-align: center;
+}
+
+
+.image {
+    -width: 240px;
+    -height: 120px;
+    width: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+}
+
+.title {
+    display: block;
+    height: 40px;
+}
