@@ -10,29 +10,28 @@ import styles from './BurgerConstructor.module.css';
 const BurgerConstructor = ({ defaultItems }) => {
 
     const [ items, useItems ] = useState(defaultItems);
-    console.log(items);
 
     return (
         <section className={`${styles.container} mt-25`} id="burger-constructor">
             <ul className={styles.list}>
                 {
-                    items.filter((item) => item.state === "top").map((item) => 
+                    items.filter((item) => item.state === "top").map((item) => (
                         <BurgerElementCard key={item._id} item={item} />
-                    )
+                    ))
                 }
             </ul>
             <ul className={`${styles.list} scroller mr-6`}>
                 {
-                    items.filter((item) => !item.state).map((item) => 
-                        <BurgerElementCard key={item._id} item={item} />
-                    )
+                    items.filter((item) => !item.state).map((item, index) => (
+                        <BurgerElementCard key={index} item={item} />
+                    ))
                 }
             </ul>
             <ul className={styles.listBottom}>
                 {
-                    items.filter((item) => item.state === "bottom").map((item) => 
+                    items.filter((item) => item.state === "bottom").map((item) => (
                         <BurgerElementCard key={item._id} item={item} />
-                    )
+                    ))
                 }
             </ul>
 

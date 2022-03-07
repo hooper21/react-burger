@@ -14,7 +14,8 @@ const NavLink = ({ title, href, children, className }) => {
 };
 
 NavLink.propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    href: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.any
 };

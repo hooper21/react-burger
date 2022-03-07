@@ -11,7 +11,9 @@ const BurgerElementCard = ({ item, count }) => {
         <article className={`${styles.card} mb-4`}>
             <div className={`${styles.grip} mr-6`}>
                 {
-                    (!item.state) ?  <DragIcon type="primary" /> : null
+                    (!item.state) ?  (
+                        <DragIcon type="primary" />
+                    ) : null
                 }
             </div>
             <ConstructorElement 
@@ -21,8 +23,7 @@ const BurgerElementCard = ({ item, count }) => {
                 price={item.price}
                 thumbnail={item.image}
                 className={styles.element}
-            >1
-            </ConstructorElement>
+            />
         </article>
     )
 };
