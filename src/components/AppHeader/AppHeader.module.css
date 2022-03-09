@@ -1,0 +1,41 @@
+.header {
+    background: var(--background);
+}
+
+.primary {
+    color: var(--text-primary-color)!important;
+}
+
+.secondary {
+    color: var(--text-inactive-color)!important;
+}
+
+.container {
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  
+    align-content: center;
+    justify-content: space-between;
+    max-width: 1240px;
+    min-height: 88px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row; 
+    width: fit-content;
+}
+
+.logo {
+    justify-self: center;
+    cursor: pointer;
+}
+@media (max-width: 991px) {
+    .logo {
+        display: none;
+    }
+}
+.user {
+    justify-self: flex-end;
+}
