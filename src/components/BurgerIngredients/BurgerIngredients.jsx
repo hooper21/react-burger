@@ -18,7 +18,7 @@ const BurgerIngredients = ({ items }) => {
         "main": "Начинки",
     };
 
-    const [ tab, setTab ] = React.useState(Object.keys(tabs)[0] ?? undefined);
+    const [ tab, setTab ] = React.useState("bun");
 
     return (
 
@@ -37,24 +37,18 @@ const BurgerIngredients = ({ items }) => {
             </nav>
 
             <div className="scroller">
-            {
-                Object.keys(tabs).map((type) => (
-                    <Fragment key={type}>
-                        <h2 className="mt-10 text text_type_main-medium">
-                            {tabs[type]}
-                        </h2>
-                        <ul className={styles.list}>
-                            {
-                                items.filter(item => item.type === type).map((item) => (
-                                    <li key={item._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
-                                        <BurgerIngredientCard item={item} count={(item._id === "60666c42cc7b410027a1a9b1") ? 1 : 0} />
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </Fragment>
-                ))
-            }
+                    <h2 className="mt-10 text text_type_main-medium">
+                        {tabs[tab]}
+                    </h2>
+                    <ul className={styles.list}>
+                        {
+                            items.filter(item => item.type === tab).map((item) => (
+                                <li key={item._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
+                                    <BurgerIngredientCard item={item} count={(item._id === "60666c42cc7b410027a1a9b1") ? 1 : 0} />
+                                </li>
+                            ))
+                        }
+                    </ul>
             </div>
 
         </section>
