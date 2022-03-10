@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCard from "../BurgerIngredientCard/BurgerIngredientCard";
 
@@ -7,9 +7,9 @@ import {ingredientPropTypes} from '../../utils/types';
 
 import styles from './BurgerIngredients.module.css';
 
-const BurgerIngredients = ({ defaultItems }) => {
+const BurgerIngredients = ({ items }) => {
 
-    const [ ingredients, useIngredients ] = useState(defaultItems);
+    //const [ ingredients, setIngredients ] = useState(data);
 
     //const tabs = ingredients.map((ingredient) => ingredient.type).filter((value, index, self) => self.indexOf(value) === index);
     const tabs = {
@@ -45,7 +45,7 @@ const BurgerIngredients = ({ defaultItems }) => {
                         </h2>
                         <ul className={styles.list}>
                             {
-                                ingredients.filter(item => item.type === type).map((item) => (
+                                items.filter(item => item.type === type).map((item) => (
                                     <li key={item._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
                                         <BurgerIngredientCard item={item} count={(item._id === "60666c42cc7b410027a1a9b1") ? 1 : 0} />
                                     </li>
@@ -62,8 +62,7 @@ const BurgerIngredients = ({ defaultItems }) => {
 }
 
 BurgerIngredients.propTypes = {
-    defaultItems: PropTypes.arrayOf(ingredientPropTypes.isRequired),
-    //ingredients: PropTypes.array.isRequired,
+    items: PropTypes.arrayOf(ingredientPropTypes.isRequired),
 }
 
 export default BurgerIngredients;

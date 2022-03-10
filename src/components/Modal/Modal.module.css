@@ -1,0 +1,26 @@
+.body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background);
+    z-index: 1000;
+    border-radius: 40px;
+}
+
+.close {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.close:hover {
+    opacity: .5;
+}
+
+.title {
+    margin: 0;
+    line-height: 40px;
+}
+  
