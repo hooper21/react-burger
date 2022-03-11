@@ -3,10 +3,10 @@ import {ingredientPropTypes} from '../../utils/types';
 
 import styles from "./IngredientsDetails.module.css";
 
-function IngredientsDetails({ item }) {
+function IngredientsDetails({ item, title }) {
 
   return (
-    <article className={styles.card + " pb-15 pr-10 pl-10"} key={item._id}>
+    <article className={styles.card + " pb-15 pr-10 pl-10"}>
         <img src={item.image} alt={item.name} className={styles.image + " mb-4"} />
         <p className="text text_type_main-medium mb-8">{item.name}</p>
         <ul className={styles.container}>

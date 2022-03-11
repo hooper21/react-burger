@@ -30,7 +30,7 @@ const BurgerIngredientCard = ({ item, count }) => {
             </article>
             {
                 (showDetails) && (
-                    <Modal onClose={() => setShowDetails(false)}>
+                    <Modal onClose={() => setShowDetails(false)} title="Детали ингредиента">
                         <IngredientDetails item={item} />
                     </Modal>
                 )

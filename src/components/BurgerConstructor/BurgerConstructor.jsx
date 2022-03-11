@@ -53,7 +53,7 @@ const BurgerConstructor = ({ data }) => {
             {
                 (showDetails) && (
                     <Modal onClose={() => setShowDetails(false)}>
-                        <OrderDetails data={order} />
+                        <OrderDetails order={order} />
                     </Modal>
                 )
             }
@@ -63,7 +63,7 @@ const BurgerConstructor = ({ data }) => {
 };
 
 BurgerConstructor.propTypes = {
-    data: orderPropTypes
+    data: orderPropTypes.isRequired
 };
 
 export default BurgerConstructor;

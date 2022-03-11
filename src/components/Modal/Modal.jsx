@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import styles from "./Modal.module.css";
 
 
@@ -21,16 +23,18 @@ function Modal({ title, onClose, children }) {
 
     return ReactDOM.createPortal(
         (
-            <div className={styles.container}>
+            <Fragment>
                 <ModalOverlay onClose={onClose} />
                 <div className={styles.body}>
-                    <h2 className={styles.title + " text text_type_main-large pl-10 pr-10 pt-10 pb-3"}>
+                    <h3 className={styles.title + " text text_type_main-medium pl-10 pr-10 pt-10 pb-3"}>
                         {title}
-                    </h2>
-                    <button className={styles.close} onClick={onClose}></button>
+                    </h3>
+                    <button className={styles.close} onClick={onClose}>
+                        <CloseIcon type='primary'/>
+                    </button>
                     {children}
                 </div>
-            </div>
+            </Fragment>
         ),
         document.getElementById("modal")
       );
@@ -41,7 +45,7 @@ function Modal({ title, onClose, children }) {
 Modal.propTypes = {
     title: PropTypes.string,
     onClose: PropTypes.func.isRequired,
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
 export default Modal;
