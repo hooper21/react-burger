@@ -1,8 +1,8 @@
 .card {
     display: block;
     text-align: center;
+    cursor: pointer;
 }
-
 
 .image {
     -width: 240px;

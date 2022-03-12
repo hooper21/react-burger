@@ -7,9 +7,6 @@
     background-color: #131316;
     color: #8585AD;
 }
-.tabs:active {
-    color: #F2F2F3;
-}
 .list {
     list-style: none;
     margin: 0;

@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerElementCard from "../BurgerElementCard/BurgerElementCard";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import Modal from "../Modal/Modal";
 
-import PropTypes from 'prop-types';
-import {ingredientPropTypes} from '../../utils/types';
+import {orderPropTypes} from '../../utils/types';
 
 import styles from './BurgerConstructor.module.css';
 
-const BurgerConstructor = ({ defaultItems }) => {
+const BurgerConstructor = ({ data }) => {
 
-    const [ items, useItems ] = useState(defaultItems);
+    const [ order, setOrder ] = useState(data);
+    const [ showDetails, setShowDetails ] = useState(false);
+
+    const { items } = order;
 
     return (
         <section className={`${styles.container} mt-25`} id="burger-constructor">
@@ -34,7 +38,6 @@ const BurgerConstructor = ({ defaultItems }) => {
                     ))
                 }
             </ul>
-
                 
             <div className={`${styles.order} mt-10 mr-6`}>
                 <p className="text text_type_digits-medium">610</p>
@@ -42,18 +45,25 @@ const BurgerConstructor = ({ defaultItems }) => {
                     <CurrencyIcon type="primary"/>
                 </div>
                 
-                <Button type="primary" size="large">
+                <Button type="primary" size="large" onClick={() => setShowDetails(true)}>
                     Оформить заказ
                 </Button>
             </div>
+
+            {
+                (showDetails) && (
+                    <Modal onClose={() => setShowDetails(false)}>
+                        <OrderDetails order={order} />
+                    </Modal>
+                )
+            }
 
         </section>
     )
 };
 
 BurgerConstructor.propTypes = {
-    defaultItems: PropTypes.arrayOf(ingredientPropTypes.isRequired),
+    data: orderPropTypes.isRequired
 };
-
 
 export default BurgerConstructor;
