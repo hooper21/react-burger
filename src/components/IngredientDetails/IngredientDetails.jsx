@@ -3,7 +3,7 @@ import {ingredientPropTypes} from '../../utils/types';
 
 import styles from "./IngredientsDetails.module.css";
 
-function IngredientsDetails({ item, title }) {
+function IngredientsDetails({ item }) {
 
   return (
     <article className={styles.card + " pb-15 pr-10 pl-10"}>
