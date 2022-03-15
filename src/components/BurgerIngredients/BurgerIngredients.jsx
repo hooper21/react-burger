@@ -2,16 +2,14 @@ import React, { Fragment, useRef } from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCard from "../BurgerIngredientCard/BurgerIngredientCard";
 
-import { IngredientsContext } from '../../services/AppContext';
-
-//import PropTypes from 'prop-types';
-//import {ingredientPropTypes} from '../../utils/types';
+import { IngredientsContext, OrderContext } from '../../services/AppContext';
 
 import styles from './BurgerIngredients.module.css';
 
 const BurgerIngredients = () => {
 
     const { ingredients } = React.useContext(IngredientsContext);
+    const { order } = React.useContext(OrderContext);
 
     const [ tab, setTab ] = React.useState("bun");
     const tabs = {
@@ -57,11 +55,16 @@ const BurgerIngredients = () => {
                             </h2>
                             <ul className={styles.list}>
                                 {
-                                    (ingredients) ? ingredients.filter(item => item.type === type).map((item) => (
-                                        <li key={item._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
-                                            <BurgerIngredientCard item={item} count={(item._id === "60666c42cc7b410027a1a9b1") ? 1 : 0} />
-                                        </li>
-                                    )) : null
+                                    ( ingredients ) ?
+                                    ( ingredients.filter(ingredient => ingredient.type === type).map((ingredient) => {
+                                        const item = order.items.find((item) => item._id === ingredient._id);
+                                        const count = (item) ? ((item.type === "bun") ? 2 : 1) : 0;
+                                        return (
+                                            <li key={ingredient._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
+                                                <BurgerIngredientCard item={ingredient} count={count} />
+                                            </li>
+                                        )
+                                    })) : null
                                 }
                             </ul>
                         </Fragment>
@@ -72,14 +75,5 @@ const BurgerIngredients = () => {
         </section>
     )
 }
-
-/*
-BurgerIngredients.propTypes = {
-    items: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-}
-BurgerIngredientCard.defaultProps = {
-    items: []
-};
-*/
 
 export default BurgerIngredients;

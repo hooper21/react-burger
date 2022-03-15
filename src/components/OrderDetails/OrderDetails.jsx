@@ -13,6 +13,11 @@ import styles from './OrderDetails.module.css';
 const OrderDetails = () => {
 
     const { order } = React.useContext(OrderContext);
+
+    order.propTypes = {
+        order: orderPropTypes.isRequired,
+    }
+
     const [ state, setState ] = useState({
         loading: false,
         error: null,
@@ -113,11 +118,6 @@ const OrderDetails = () => {
         </div>
     )
      
-
-}
-
-OrderDetails.propTypes = {
-    order: orderPropTypes.isRequired,
 }
 
 export default OrderDetails;

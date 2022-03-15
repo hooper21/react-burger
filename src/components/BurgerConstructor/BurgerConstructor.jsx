@@ -6,7 +6,7 @@ import Modal from "../Modal/Modal";
 
 import { OrderContext } from '../../services/AppContext';
 
-//import {orderPropTypes} from '../../utils/types';
+import {orderPropTypes} from '../../utils/types';
 
 import styles from './BurgerConstructor.module.css';
 
@@ -60,12 +60,6 @@ const BurgerConstructor = () => {
 
         </section>
     )
-};
-
-/*
-BurgerConstructor.propTypes = {
-    data: orderPropTypes.isRequired
-};
-*/
+}
 
 export default BurgerConstructor;
