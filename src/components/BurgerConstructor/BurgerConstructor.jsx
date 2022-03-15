@@ -4,25 +4,29 @@ import BurgerElementCard from "../BurgerElementCard/BurgerElementCard";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 
-import {orderPropTypes} from '../../utils/types';
+import { OrderContext } from '../../services/AppContext';
+
+//import {orderPropTypes} from '../../utils/types';
 
 import styles from './BurgerConstructor.module.css';
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = () => {
 
-    const [ order, setOrder ] = useState(data);
+    const { order } = React.useContext(OrderContext);
+
     const [ showDetails, setShowDetails ] = useState(false);
 
     const { items } = order;
+    if (!items || !items.length) return null;
+
+    const bun = items.find((item) => item.type === "bun");
+    const bunTop = {...bun, name: bun.name + " (верх)"};
+    const bunBottom = {...bun, name: bun.name + " (низ)"};
 
     return (
         <section className={`${styles.container} mt-25`} id="burger-constructor">
             <ul className={styles.list}>
-                {
-                    items.filter((item) => item.state === "top").map((item) => (
-                        <BurgerElementCard key={item._id} item={item} />
-                    ))
-                }
+                <BurgerElementCard item={bunTop} />
             </ul>
             <ul className={`${styles.list} scroller mr-6`}>
                 {
@@ -32,15 +36,11 @@ const BurgerConstructor = ({ data }) => {
                 }
             </ul>
             <ul className={styles.listBottom}>
-                {
-                    items.filter((item) => item.state === "bottom").map((item) => (
-                        <BurgerElementCard key={item._id} item={item} />
-                    ))
-                }
+                <BurgerElementCard item={bunBottom} />
             </ul>
                 
             <div className={`${styles.order} mt-10 mr-6`}>
-                <p className="text text_type_digits-medium">610</p>
+                <p className="text text_type_digits-medium">{order.total}</p>
                 <div className={`ml-2 mr-10 ${styles.currency_icon}`}>
                     <CurrencyIcon type="primary"/>
                 </div>
@@ -62,8 +62,10 @@ const BurgerConstructor = ({ data }) => {
     )
 };
 
+/*
 BurgerConstructor.propTypes = {
     data: orderPropTypes.isRequired
 };
+*/
 
 export default BurgerConstructor;
