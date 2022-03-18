@@ -60,15 +60,16 @@ const OrderDetails = () => {
                     if (response.success) {
                         order.name = response.name;
                         order.number = response.order.number;
-                        setState({ ...state, loading: false });
                     } else {
-                        setState({ ...state, loading: false, error: response.message });
+                        setState({ ...state, error: response.message });
                     };
                 };
             })
             .catch((error) => {
                 console.error(error);
-                setState({ ...state, loading: false, error: error });
+            })
+            .finally(() => {
+                setState({ ...state, loading: false });
             })
 
     }, []);

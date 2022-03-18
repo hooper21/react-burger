@@ -5,7 +5,7 @@ body {
     font-family: "Jet Brains Mono", "Iceland", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: var(--background);
+    background-color: #131316;
 }
   
 code {
