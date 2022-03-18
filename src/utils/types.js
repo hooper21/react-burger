@@ -16,7 +16,7 @@ export const ingredientPropTypes = PropTypes.shape({
 });
 
 export const orderPropTypes = PropTypes.shape({
-    "number": PropTypes.number.isRequired,
+    "number": PropTypes.number, // can be nulled
     "total": PropTypes.number.isRequired,
     "items": PropTypes.arrayOf(ingredientPropTypes.isRequired),
 });

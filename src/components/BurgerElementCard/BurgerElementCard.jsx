@@ -6,19 +6,19 @@ import {ingredientPropTypes} from '../../utils/types';
 
 import styles from './BurgerElementCard.module.css';
 
-const BurgerElementCard = ({ item, count }) => {
+const BurgerElementCard = ({ item, state }) => {
     return (
         <article className={`${styles.card} mb-4`}>
             <div className={`${styles.grip} mr-6`}>
                 {
-                    (!item.state) ?  (
+                    (!state) ?  (
                         <DragIcon type="primary" />
                     ) : null
                 }
             </div>
             <ConstructorElement 
-                type={item.state}
-                isLocked={item.state ? true : false}
+                type={state}
+                isLocked={state ? true : false}
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}

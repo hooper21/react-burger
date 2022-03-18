@@ -6,6 +6,8 @@
     background-color: var(--background);
     z-index: 1000;
     border-radius: 40px;
+    min-width: 400px;
+    min-height: 300px;
 }
 
 .close {
