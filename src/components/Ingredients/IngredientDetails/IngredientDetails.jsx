@@ -1,5 +1,5 @@
 import React from "react";
-import {ingredientPropTypes} from '../../utils/types';
+import {ingredientPropTypes} from '../../../utils/types';
 
 import styles from "./IngredientsDetails.module.css";
 

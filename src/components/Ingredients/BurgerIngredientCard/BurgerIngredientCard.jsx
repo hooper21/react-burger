@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import { Fragment } from "react";
+import { useDispatch } from "react-redux";
+import { useDrag } from 'react-dnd';
+import { setCurrentIngredient } from "../../../services/actions/ingredients";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-
 
 import PropTypes from 'prop-types';
-import {ingredientPropTypes} from '../../utils/types';
+import {ingredientPropTypes} from '../../../utils/types';
 
 import styles from './BurgerIngredientCard.module.css';
 
 const BurgerIngredientCard = ({ item, count }) => {
 
-    const [showDetails, setShowDetails] = useState(false);
+    const dispatch = useDispatch();
+
+    const [, dragRef] = useDrag({
+        type: "ingredient",
+        item: item,
+    });
 
     return (
-        <>
-            <article className={`${styles.card}`} onClick={() => setShowDetails(true)}>
+        <Fragment>
+            <article ref={dragRef} className={`${styles.card}`} onClick={() => dispatch(setCurrentIngredient(item))}>
                 <img className={`${styles.image} mb-1`} src={item.image} alt={item.name} />
                 <div className={`${styles.price} mb-1`} >
                     <p className="text text_type_digits-default mr-2">{item.price}</p>
@@ -28,14 +33,7 @@ const BurgerIngredientCard = ({ item, count }) => {
                     )
                 }
             </article>
-            {
-                (showDetails) && (
-                    <Modal onClose={() => setShowDetails(false)} title="Детали ингредиента">
-                        <IngredientDetails item={item} />
-                    </Modal>
-                )
-            }
-        </>
+        </Fragment>
     );
 
 };

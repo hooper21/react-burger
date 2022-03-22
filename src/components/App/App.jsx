@@ -1,86 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import Spinner from '../Spinner/Spinner';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { IngredientsContext, OrderContext, blankOrder } from '../../services/AppContext';
+import { getIngredients } from "../../services/DataService";
 
-import { API_URL } from "../../config";
+import AppHeader from '../../ui/AppHeader/AppHeader';
+import Spinner from '../../ui/Spinner/Spinner';
+import BurgerIngredients from '../Ingredients/BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../Burger/BurgerConstructor/BurgerConstructor';
 
 import styles from './App.module.css';
 
 function App() {
 
-  const [state, setState] = useState({
-      ingredients: [],
-      order: blankOrder,
-      loading: false,
-      error: null,
-  });
+    const dispatch = useDispatch();
+    const loading = useSelector((store) => (store.ingredients.loading ?? store.order.loading));
 
-  const createBurgerOrder = (items) => {
-      const order = {
-          number: null,
-          name: null,
-          total: 0,
-          items: []
-      };
-      order.items = items.filter((item) => item.type !== "bun");
-      const bun = items.find((item) => item.type === "bun");
-      order.items = [bun, ...order.items];
-      order.items.map((item) => {
-          order.total += (item.type === "bun") ? 2 * item.price : item.price
-      });
-      
-      return order;
-  };
-  
-  
-  useEffect(() => {
-    setState({ ...state, loading: true });
-    fetch(`${API_URL}/ingredients`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          const error = `Ошибка получения данных. (${response.status}) ${response.statusText}`;
-          setState({ ...state, loading: false, error: error });
-          return null;
-        };
-      })
-      .then((response) => {
-        if (response.success) {
-          const ingredients = response.data;
-          const order = createBurgerOrder(ingredients);
-          setState({ ...state, loading: false, ingredients: ingredients, order: order });
-        } else {
-          setState({ ...state, loading: false, error: response.status });  
-        };
-      })
-      .catch((error) => {
-        setState({ ...state, loading: false, error: error });
-      })
-  }, []);
+    useEffect(() => dispatch(getIngredients()), [dispatch]);
 
-  const { loading, ingredients, order } = state;
-  
-  return (
-      ( loading ) ? (
-        <Spinner />
-      ) : (
-        <IngredientsContext.Provider value={{ingredients}}>
-          <OrderContext.Provider value={{order}}>
+    if ( loading ) {
+        return (
+            <Spinner />
+        );
+    };
+
+    return (
+        <DndProvider backend={HTML5Backend}>
             <AppHeader />
             <main className={styles.main}>
-              <BurgerIngredients />
-              <BurgerConstructor />
+                <BurgerIngredients />
+                <BurgerConstructor />
             </main>
-          </OrderContext.Provider>
-        </IngredientsContext.Provider>
-      )
-    
-  );
+        </DndProvider>
+    );
 }
 
 export default App;
