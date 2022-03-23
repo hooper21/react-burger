@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
-import { getOrderSuccess, setBurgerBun, addBurgerIngredient, removeBurgerIngredient, hideOrderErrors } from "../../../services/actions/order";
+import { getOrderSuccess, clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient, hideOrderErrors } from "../../../services/actions/order";
 import { getOrderNumber } from "../../../services/DataService";
 
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -12,7 +12,6 @@ import Modal from "../../../ui/Modal/Modal";
 import styles from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
-
 
     const burger = useSelector((store) => store.burger);
     const order = useSelector((store) => store.order);
@@ -46,10 +45,16 @@ const BurgerConstructor = () => {
             </Modal>
         );
     };
+
+    const handleOrderDone = () => {
+        dispatch(clearBurger());
+        dispatch(getOrderSuccess(null));
+    };
     
     const findIngredient = (id) => ((id) ? ingredients.find((item) => item._id === id) : null);
     const bunItem = findIngredient(burger.bun);
-    let total = bunItem ? (bunItem.price * 2) : 0;
+
+    const burgerCost = ((bunItem?.price ?? 0) * 2) + Object.keys(burger.items).reduce((total, uuid) => total + findIngredient(burger.items[uuid])?.price, 0);
 
     return (
         <section ref={dropIngredientsRef} className={`${styles.container} mt-25`} id="burger-constructor">
@@ -60,17 +65,25 @@ const BurgerConstructor = () => {
                     ) : null
                 }
             </ul>
+            
             <ul className={`${styles.list} scroller mr-6`}>
                 {
-                    Object.keys(burger.items).map((uuid) => {
-                        const item = findIngredient(burger.items[uuid]);
-                        total += item.price;
-                        return (
-                            <BurgerElementCard key={uuid} index={uuid} item={item} onRemove={() => dispatch(removeBurgerIngredient(uuid))} />
-                        )
-                    })
+                    (Object.keys(burger.items).length === 0) ? (
+                        <p className={styles.emptyItems}>
+                            Соберите свой Steller Burger
+                        </p>
+                    ) : (
+                        Object.keys(burger.items).map((uuid) => {
+                            const item = findIngredient(burger.items[uuid]);
+                            return (
+                                <BurgerElementCard key={uuid} index={uuid} item={item} onRemove={() => dispatch(removeBurgerIngredient(uuid))} />
+                            )
+                        })
+                    )
+                    
                 }
             </ul>
+            
             <ul className={styles.listBottom}>
                 {
                     (bunItem) ? (
@@ -80,7 +93,7 @@ const BurgerConstructor = () => {
             </ul>
                 
             <div className={`${styles.order} mt-10 mr-6`}>
-                <p className="text text_type_digits-medium">{total}</p>
+                <p className="text text_type_digits-medium">{burgerCost}</p>
                 <div className={`ml-2 mr-10 ${styles.currency_icon}`}>
                     <CurrencyIcon type="primary"/>
                 </div>
@@ -91,7 +104,7 @@ const BurgerConstructor = () => {
             
             {
                 (order.order) && (
-                    <Modal onClose={() => dispatch(getOrderSuccess(null))}>
+                    <Modal onClose={handleOrderDone}>
                         <OrderDetails order={order.order} />
                     </Modal>
                 )

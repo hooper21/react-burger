@@ -1,7 +1,7 @@
 import { API_URL } from "../config";
 
 import { getIngredientsRequest, getIngredientsSuccess, getIngredientsFailed } from "./actions/ingredients";
-import { getOrderRequest, getOrderSuccess, getOrderFailed, setBurgerIngredients } from "./actions/order";
+import { getOrderRequest, getOrderSuccess, getOrderFailed } from "./actions/order";
 
 export const getIngredients = () => {
     return (dispatch) => {
@@ -11,7 +11,7 @@ export const getIngredients = () => {
             .then((response) => {
                 if (response?.success) {
                     dispatch(getIngredientsSuccess(response.data));
-                    dispatch(setBurgerIngredients(response.data));
+                    //dispatch(setBurgerIngredients(response.data));
                 } else {
                     dispatch(getIngredientsFailed(`Ошибка получения данных. (${response.status}) ${response.statusText}`))
                 };

@@ -1,3 +1,5 @@
+import { nanoid } from '@reduxjs/toolkit';
+
 import { ACTION_TYPES } from "./types";
 
 export const getOrderRequest = () => ({
@@ -6,7 +8,7 @@ export const getOrderRequest = () => ({
 
 export const getOrderSuccess = (order) => ({
     type: ACTION_TYPES.GET_ORDER_SUCCESS,
-    order
+    order: order,
 });
 
 export const getOrderFailed = () => ({
@@ -17,10 +19,15 @@ export const hideOrderErrors = () => ({
     type: ACTION_TYPES.CLEAR_ERRORS,
 });
 
-
+/*
 export const setBurgerIngredients = (items) => ({
     type: ACTION_TYPES.BURGER_SET_INGREDIENTS,
     items: items,
+});
+*/
+
+export const clearBurger = () => ({
+    type: ACTION_TYPES.BURGER_CLEAR,
 });
 
 export const setBurgerBun = (id) => ({
@@ -35,7 +42,8 @@ export const removeBurgerBun= (id) => ({
 
 export const addBurgerIngredient = (id) => ({
     type: ACTION_TYPES.BURGER_ADD_INGREDIENT,
-    id: id
+    id: id,
+    uuid: nanoid(),
 });
 
 export const removeBurgerIngredient = (uuid) => ({

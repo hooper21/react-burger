@@ -10,7 +10,7 @@ const orderReducer = (state = initialState.order, action) => {
                 loading: true,
                 error: null,
             };
-        case ACTION_TYPES.GET_ORDER_SUCCESS:
+        case ACTION_TYPES.GET_ORDER_SUCCESS: 
             return {
                 ...state,
                 order: action.order,

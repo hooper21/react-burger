@@ -5,11 +5,11 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from 'react-dnd';
 
 import PropTypes from 'prop-types';
-import {ingredientPropTypes} from '../../../utils/types';
+import { ingredientPropTypes } from '../../../utils/types';
 
 import styles from './BurgerElementCard.module.css';
 
-const BurgerElementCard = ({ item, index, state, onRemove, MoveItem }) => {
+const BurgerElementCard = ({ item, index, state, onRemove }) => {
 
     const dispatch = useDispatch();
     const ref = useRef(null);
@@ -36,7 +36,7 @@ const BurgerElementCard = ({ item, index, state, onRemove, MoveItem }) => {
         dragRef(dropRef(ref));
     };
 
-    const opacity = (isDragging || isOver) ? 0.5 : 1
+    const opacity = (isDragging || isOver) ? 0.5 : 1;
 
     return (
         <article ref={ref} className={`${styles.card} mb-4`} style={{...styles, opacity}} draggable>
@@ -60,13 +60,11 @@ const BurgerElementCard = ({ item, index, state, onRemove, MoveItem }) => {
     )
 };
 
-BurgerElementCard.defaultProps = {
+BurgerElementCard.propTypes = {
     item: ingredientPropTypes.isRequired,
-    count: PropTypes.number,
-};
-
-BurgerElementCard.defaultProps = {
-    count: 0
+    index: PropTypes.string,
+    state: PropTypes.string,
+    onRemove: PropTypes.func,
 };
 
 export default BurgerElementCard;

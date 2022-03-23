@@ -18,9 +18,11 @@ const BurgerIngredientCard = ({ item, count }) => {
         item: item,
     });
 
+    const opacity = (count > 0) ? 0.5 : 1;
+
     return (
         <Fragment>
-            <article ref={dragRef} className={`${styles.card}`} onClick={() => dispatch(setCurrentIngredient(item))}>
+            <article ref={dragRef} className={`${styles.card}`} onClick={() => dispatch(setCurrentIngredient(item))} style={{...styles, opacity}}>
                 <img className={`${styles.image} mb-1`} src={item.image} alt={item.name} />
                 <div className={`${styles.price} mb-1`} >
                     <p className="text text_type_digits-default mr-2">{item.price}</p>
