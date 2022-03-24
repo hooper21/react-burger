@@ -4,10 +4,12 @@
     box-sizing: border-box;
 }
 
-.list {
+.list, 
+.listTop {
     margin: 0;
     padding: 0;
     list-style: none;
+    min-height: 96px;
 }
 
 .listBottom {
@@ -15,8 +17,11 @@
     margin-top: 16px;
     padding: 0;
     list-style: none;
+    min-height: 96px;
 }
-
+.emptyItems {
+    text-align: center;
+}
 .order {
     display: flex;
     flex-direction: row;
