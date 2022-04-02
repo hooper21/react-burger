@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 480px;
+    margin-bottom: 56px;
+}
+
+.form > div {
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.footer span {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.form > div > div {
+    width: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color: #4C4CFF;
+}

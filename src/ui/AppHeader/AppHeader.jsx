@@ -1,7 +1,11 @@
-import React from "react";
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
+
+import ProtectedContent from "../../components/ProtectedContent/ProtectedContent";
+import GuestContent from "../../components/GuestContent/GuestContent";
+
 import NavLink from "../AppHeaderNavLink/AppHeaderNavLink";
 
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './AppHeader.module.css';
 
 const AppHeader = () => {
@@ -9,24 +13,33 @@ const AppHeader = () => {
         <header className={`${styles.header}`}>
             <div className={`${styles.container} pt-4 pb-4`} >
                 <nav className={styles.nav}>
-                    <NavLink title="Конструктор" className={styles.primary} href="/order">
+                    <NavLink href="/" title="Конструктор" className={styles.primary}>
                         <BurgerIcon type="primary" />
                     </NavLink>
-                    <NavLink title="Лента заказов" className={styles.secondary} href="/orders">
-                        <ListIcon type="secondary" />
-                    </NavLink>
+                    <ProtectedContent>
+                        <NavLink href="/profile/orders" title="Лента заказов" className={styles.secondary}>
+                            <ListIcon type="secondary" />
+                        </NavLink>
+                    </ProtectedContent>
                 </nav>
 
                 <div className={styles.logo}>
-                    <a href="/">
+                    <Link to="/">
                         <Logo />
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={styles.user}>
-                    <NavLink title="Личный кабинет" className={styles.secondary} href="/profile">
-                        <ProfileIcon type="secondary" />
-                    </NavLink>
+                    <ProtectedContent>
+                        <NavLink href="/profile" title="Личный кабинет" className={styles.secondary}>
+                            <ProfileIcon type="secondary" />
+                        </NavLink>
+                    </ProtectedContent>
+                    <GuestContent>
+                        <NavLink href="/login" title="Вход" className={styles.secondary}>
+                            <ProfileIcon type="secondary" />
+                        </NavLink>
+                    </GuestContent>
                 </div>
                 
             </div>

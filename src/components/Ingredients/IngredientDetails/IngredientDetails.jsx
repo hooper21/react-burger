@@ -4,7 +4,6 @@ import {ingredientPropTypes} from '../../../utils/types';
 import styles from "./IngredientsDetails.module.css";
 
 function IngredientsDetails({ item }) {
-
   return (
     <article className={styles.card + " pb-15 pr-10 pl-10"}>
         <img src={item.image} alt={item.name} className={styles.image + " mb-4"} />
