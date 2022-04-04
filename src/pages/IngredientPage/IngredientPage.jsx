@@ -10,7 +10,7 @@ import IngredientDetails from '../../components/Ingredients/IngredientDetails/In
 const IngredientPage = () => {
     const { items } = useSelector((store) => store.ingredients);
     const { id } = useParams();
-    var currentIngredient = (items) ? items.find(item => item._id === id) : null;
+    const currentIngredient = (items) ? items.find(item => item._id === id) : null;
 
     const dispatch = useDispatch();
     useEffect(() => {

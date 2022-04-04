@@ -16,11 +16,9 @@ const AppHeader = () => {
                     <NavLink href="/" title="Конструктор" className={styles.primary}>
                         <BurgerIcon type="primary" />
                     </NavLink>
-                    <ProtectedContent>
-                        <NavLink href="/profile/orders" title="Лента заказов" className={styles.secondary}>
-                            <ListIcon type="secondary" />
-                        </NavLink>
-                    </ProtectedContent>
+                    <NavLink href="/profile/orders" title="Лента заказов" className={styles.secondary}>
+                        <ListIcon type="secondary" />
+                    </NavLink>
                 </nav>
 
                 <div className={styles.logo}>

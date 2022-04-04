@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { currentUser, restoreUser } from "../../services/AuthService";
+import { restoreUser } from "../../services/AuthService";
 import { getIngredients } from "../../services/DataService";
 
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
 import GuestRoute from '../GuestRoute/GuestRoute';
 
-import { AppHeader, Spinner, Modal } from '../../ui/';
+import { AppHeader, Spinner } from '../../ui/';
 import { HomePage, IngredientPage, ProfileForm, ProfileOrders, Login, Register, NotFound } from  '../../pages';
 import PasswordForgot from  '../../pages/User/PasswordForgot/PasswordForgot';
 import PasswordReset from  '../../pages/User/PasswordReset/PasswordReset';
@@ -25,8 +25,11 @@ function App() {
 
     const loading = useSelector((store) => ((store.ingredients.loading ?? false) || (store.order.loading ?? false) || (store.account.loading ?? false)));
 
+    const location = useLocation();
+    const returnTo = location.state?.returnTo;
+
     return (
-        <Router>
+        <>
             <AppHeader />
             {
                 (loading) && (
@@ -41,9 +44,9 @@ function App() {
                     <Route path="/ingredients/:id" exact={true}>
                         <IngredientPage />
                     </Route>
-                    <ProtectedRoute path="/profile/orders">
+                    <Route path="/profile/orders">
                         <ProfileOrders />
-                    </ProtectedRoute>
+                    </Route>
                     <ProtectedRoute path="/profile">
                         <ProfileForm />
                     </ProtectedRoute>
@@ -64,7 +67,7 @@ function App() {
                     </Route>
                 </Switch>
             </DndProvider>
-        </Router>
+        </>
     );
 }
 

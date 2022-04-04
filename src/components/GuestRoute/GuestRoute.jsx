@@ -1,20 +1,18 @@
 import { Route, Redirect } from "react-router-dom";
-//import { useSelector } from 'react-redux';
-import { currentUser } from "../../services/AuthService";
+import { useSelector } from 'react-redux';
 
-function GuestRoute({ children, ...props }) {
-    //const { user } = useSelector((store) => store.account);
-    const user = currentUser();
+function ProtectedRoute({ children, ...props }) {
+    const { user } = useSelector((store) => store.account);
     return (
-        <Route {...props} exact={true} render={
+        <Route {...props} render={
             ({ location }) => 
-                (user) ? (
-                    <Redirect to={{ pathname: '/', state: { from: location }}}/>
-                ) : (
+                (!user) ? (
                     children
+                ) : (
+                    <Redirect to={ location.state?.returnTo || location }/>
                 )
         }/>
     );
 }
 
-export default GuestRoute;
+export default ProtectedRoute;

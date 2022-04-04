@@ -1,33 +1,28 @@
-import { Fragment } from "react";
-import { useDispatch } from "react-redux";
 import { useDrag } from 'react-dnd';
-import { setCurrentIngredient } from "../../../services/actions/ingredients";
+import { Link, useLocation } from 'react-router-dom';
+
+//import { setCurrentIngredient } from "../../../services/actions/ingredients";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../../utils/types';
-import { setLocation } from "../../../services/DataService";
 
 import styles from './BurgerIngredientCard.module.css';
 
 const BurgerIngredientCard = ({ item, count }) => {
 
-    const dispatch = useDispatch();
+    const location = useLocation();
+
     const [, dragRef] = useDrag({
         type: "ingredient",
         item: item,
     });
 
-    const onClick = (e) => {
-        e.preventDefault();
-        dispatch(setCurrentIngredient(item));
-        setLocation(`/ingredients/${item._id}`);
-    };
     const opacity = (count > 0) ? 0.5 : 1;
 
     return (
-        <Fragment>
-            <article ref={dragRef} className={`${styles.card}`} onClick={onClick} style={{...styles, opacity}}>
+        <Link to={{ pathname: `/ingredients/${item._id}`, state: { returnTo: location } }} className={styles.link}>
+            <article ref={dragRef} className={styles.card} style={{...styles, opacity}}>
                 <img className={`${styles.image} mb-1`} src={item.image} alt={item.name} />
                 <div className={`${styles.price} mb-1`} >
                     <p className="text text_type_digits-default mr-2">{item.price}</p>
@@ -40,7 +35,7 @@ const BurgerIngredientCard = ({ item, count }) => {
                     )
                 }
             </article>
-        </Fragment>
+        </Link>
     );
 
 };
