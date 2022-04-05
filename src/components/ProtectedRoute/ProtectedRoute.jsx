@@ -13,6 +13,6 @@ function ProtectedRoute({ children, ...props }) {
                 )
         }/>
     );
-}
+};
 
 export default ProtectedRoute;

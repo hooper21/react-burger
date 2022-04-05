@@ -7,7 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { restoreUser } from "../../services/AuthService";
 import { getIngredients } from "../../services/DataService";
 
-import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import GuestRoute from '../GuestRoute/GuestRoute';
 
 import { AppHeader, Spinner } from '../../ui/';
@@ -24,9 +24,6 @@ function App() {
     }, [dispatch]);
 
     const loading = useSelector((store) => ((store.ingredients.loading ?? false) || (store.order.loading ?? false) || (store.account.loading ?? false)));
-
-    const location = useLocation();
-    const returnTo = location.state?.returnTo;
 
     return (
         <>

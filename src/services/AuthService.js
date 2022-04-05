@@ -32,7 +32,6 @@ export const loginUser = (email, password, history) => {
                         const userData = { ...response };
                         Storage.setUser(userData);
                         dispatch(loginSuccess(userData));
-                        //history.replace({ pathname: "/" });
                     }
                     else 
                     {
