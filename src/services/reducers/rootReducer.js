@@ -3,6 +3,7 @@ import ingredientsReducer from "./ingredientsReducer";
 import currentIngredientReducer from "./currentIngredientReducer";
 import burgerReducer from "./burgerReducer";
 import orderReducer from "./orderReducer";
+import accountReducer from "./accountReducer";
 
 export const initialState = {
     ingredients: {
@@ -23,6 +24,12 @@ export const initialState = {
         order: null,
         loading: false,
         error: null,
+    },
+
+    account: {
+        user: null,
+        loading: false,
+        error: null,
     }
 
 };
@@ -32,6 +39,7 @@ const rootReducer = combineReducers({
     currentIngredient: currentIngredientReducer,
     burger: burgerReducer,
     order: orderReducer,
+    account: accountReducer,
 });
 
 export default rootReducer;

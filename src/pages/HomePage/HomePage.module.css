@@ -1,0 +1,21 @@
+.main {
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 40px;
+}
+
+@media (min-width: 1200px) {
+    .main {
+        grid-template-columns: 100%;
+        grid-template-columns: 1fr 1fr;
+        max-width: 1240px;
+    }
+}
+
+.main > * {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}

@@ -22,3 +22,8 @@
     display: block;
     height: 40px;
 }
+
+.link {
+    color: inherit;
+    text-decoration: inherit;
+}

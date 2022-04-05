@@ -11,8 +11,9 @@ export const getOrderSuccess = (order) => ({
     order: order,
 });
 
-export const getOrderFailed = () => ({
+export const getOrderFailed = (error) => ({
     type: ACTION_TYPES.GET_ORDER_FAILED,
+    error: error
 });
 
 export const hideOrderErrors = () => ({

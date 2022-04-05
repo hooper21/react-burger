@@ -1,27 +1,25 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-import styles from './AppHeaderNavLink.module.css';
-
-const NavLink = ({ title, href, children, className }) => {
+const AppHeaderNavLink = ({ title, href, children, className }) => {
     
     return (
-        <a className={`pl-5 pr-5 mr-2 ${className}`} href={href}>
+        <Link to={href} className={`pl-5 pr-5 mr-2 ${className}`}>
             { children }
             <span className="ml-2">{ title }</span>
-        </a>
+        </Link>
     )
 };
 
-NavLink.propTypes = {
+AppHeaderNavLink.propTypes = {
     title: PropTypes.string.isRequired,
     href: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.any
 };
 
-NavLink.defaultProps = {
+AppHeaderNavLink.defaultProps = {
     className: "text-secondary"
 };
 
-export default NavLink;
+export default AppHeaderNavLink;

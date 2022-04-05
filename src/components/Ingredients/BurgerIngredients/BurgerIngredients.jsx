@@ -1,5 +1,7 @@
 import { Fragment,  useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { setLocation } from "../../../services/DataService";
+
 import { setCurrentTab, setCurrentIngredient, hideIngredientsErrors } from "../../../services/actions/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -31,10 +33,15 @@ const BurgerIngredients = () => {
         "main": useRef(null),
     };
 
-    const handleTabClick = (type) => {
+    const onTabClick = (type) => {
         dispatch(setCurrentTab(type));
         var tagRef = tabRefs[type].current ?? null;
         return tagRef && tagRef.scrollIntoView();
+    };
+
+    const onClose = () => {
+        setLocation("/");
+        dispatch(setCurrentIngredient(null));
     };
 
     const onScroll = () => {
@@ -77,7 +84,7 @@ const BurgerIngredients = () => {
             <nav className={`${styles.tabs} mt-5 mb-10`}>
                 {
                     Object.keys(tabs).map((type) => (
-                        <Tab key={type} active={type === currentTab} onClick={() => handleTabClick(type)}>
+                        <Tab key={type} active={type === currentTab} onClick={() => onTabClick(type)}>
                             {tabs[type]}
                         </Tab>
                     ))
@@ -112,7 +119,7 @@ const BurgerIngredients = () => {
     
             {
                 ( currentIngredient ) ? (
-                    <Modal onClose={() => dispatch(setCurrentIngredient(null))} title="Детали ингредиента">
+                    <Modal onClose={onClose} title="Детали ингредиента">
                         <IngredientDetails item={currentIngredient} />
                     </Modal>
                 ) : null

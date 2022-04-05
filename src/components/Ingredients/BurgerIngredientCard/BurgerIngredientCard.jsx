@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag } from 'react-dnd';
 import { setCurrentIngredient } from "../../../services/actions/ingredients";
+import { setLocation } from "../../../services/DataService";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import PropTypes from 'prop-types';
@@ -18,12 +19,17 @@ const BurgerIngredientCard = ({ item, count }) => {
         item: item,
     });
 
+    const onClick = () => {
+        dispatch(setCurrentIngredient(item));
+        setLocation(`/ingredients/${item._id}`);
+    };
+
     const opacity = (count > 0) ? 0.5 : 1;
 
     return (
         <Fragment>
-            <article ref={dragRef} className={`${styles.card}`} onClick={() => dispatch(setCurrentIngredient(item))} style={{...styles, opacity}}>
-                <img className={`${styles.image} mb-1`} src={item.image} alt={item.name} />
+            <article ref={dragRef} onClick={onClick} className={`${styles.card}`} style={{...styles, opacity}}>
+                    <img className={`${styles.image} mb-1`} src={item.image} alt={item.name} />
                 <div className={`${styles.price} mb-1`} >
                     <p className="text text_type_digits-default mr-2">{item.price}</p>
                     <CurrencyIcon type="primary" />                

@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { getOrderSuccess, clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient, hideOrderErrors } from "../../../services/actions/order";
@@ -12,10 +13,11 @@ import Modal from "../../../ui/Modal/Modal";
 import styles from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
-
     const burger = useSelector((store) => store.burger);
     const order = useSelector((store) => store.order);
     const ingredients = useSelector((store) => store.ingredients.items);
+    const { user } = useSelector((store) => store.account);
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const [, dropIngredientsRef] = useDrop({
@@ -46,7 +48,15 @@ const BurgerConstructor = () => {
         );
     };
 
-    const handleOrderDone = () => {
+    const onOrderOpen = () => {
+        dispatch(getOrderNumber([burger.bun, ...Object.keys(burger.items).map((uuid) => burger.items[uuid])]));
+    };
+
+    const onClickLogin = () => {
+        history.replace({ pathname: "/login" });
+    };
+
+    const onOrderClose = () => {
         dispatch(clearBurger());
         dispatch(getOrderSuccess(null));
     };
@@ -80,7 +90,6 @@ const BurgerConstructor = () => {
                             )
                         })
                     )
-                    
                 }
             </ul>
             
@@ -97,14 +106,22 @@ const BurgerConstructor = () => {
                 <div className={`ml-2 mr-10 ${styles.currency_icon}`}>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button type="primary" size="large" onClick={() => dispatch(getOrderNumber([burger.bun, ...Object.keys(burger.items).map((uuid) => burger.items[uuid])]))}>
-                    Оформить заказ
-                </Button>
+                {
+                    (user) ? (
+                        <Button type="primary" size="large" onClick={onOrderOpen} disabled={(burgerCost === 0)}>
+                            Оформить заказ
+                        </Button>
+                    ) : (
+                        <Button type="primary" size="large" onClick={onClickLogin}>
+                            Авторизайтесь
+                        </Button>
+                    )
+                }
             </div>
             
             {
                 (order.order) && (
-                    <Modal onClose={handleOrderDone}>
+                    <Modal onClose={onOrderClose}>
                         <OrderDetails order={order.order} />
                     </Modal>
                 )
