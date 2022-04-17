@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./IngredientsDetails.module.css";
+import styles from "./IngredientDetails.module.css";
 
 import { TIngredient } from "../../../utils/types";
 

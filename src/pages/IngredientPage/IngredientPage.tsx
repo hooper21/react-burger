@@ -7,7 +7,6 @@ import { TIngredient } from "../../utils/types"
 import IngredientDetails from '../../components/Ingredients/IngredientDetails/IngredientDetails';
 import { NotFound } from  '..';
 
-
 type TParams = {
     [id: string]: string;
 };

@@ -1,4 +1,3 @@
-
 import { TOrder } from "../../../utils/types";
 
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
