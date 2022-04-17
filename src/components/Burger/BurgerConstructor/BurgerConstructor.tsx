@@ -4,6 +4,8 @@ import { useDrop } from "react-dnd";
 import { getOrderSuccess, clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient, hideOrderErrors } from "../../../services/actions/order";
 import { getOrderNumber } from "../../../services/DataService";
 
+import { TIngredient } from "../../../utils/types";
+
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import BurgerElementCard from "../BurgerElementCard/BurgerElementCard";
@@ -13,16 +15,16 @@ import Modal from "../../../ui/Modal/Modal";
 import styles from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
-    const burger = useSelector((store) => store.burger);
-    const order = useSelector((store) => store.order);
-    const ingredients = useSelector((store) => store.ingredients.items);
-    const { user } = useSelector((store) => store.account);
+    const burger = useSelector((store: any) => store.burger);
+    const order = useSelector((store: any) => store.order);
+    const ingredients = useSelector((store: any) => store.ingredients.items);
+    const { user } = useSelector((store: any) => store.account);
     const history = useHistory();
     const dispatch = useDispatch();
 
     const [, dropIngredientsRef] = useDrop({
         accept: "ingredient",
-        drop(item) {
+        drop(item: TIngredient) {
             if (item.type === "bun") {
                 dispatch(setBurgerBun(item._id));
             } else {
@@ -61,7 +63,7 @@ const BurgerConstructor = () => {
         dispatch(getOrderSuccess(null));
     };
     
-    const findIngredient = (id) => ((id) ? ingredients.find((item) => item._id === id) : null);
+    const findIngredient = (id: string) => ((id) ? ingredients.find((item: TIngredient) => item._id === id) : null);
     const bunItem = findIngredient(burger.bun);
 
     const burgerCost = ((bunItem?.price ?? 0) * 2) + Object.keys(burger.items).reduce((total, uuid) => total + findIngredient(burger.items[uuid])?.price, 0);

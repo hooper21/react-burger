@@ -1,8 +1,8 @@
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
-function ProtectedRoute({ children, ...props }) {
-    const { user } = useSelector((store) => store.account);
+function ProtectedRoute({ children, ...props }: any) {
+    const { user } = useSelector((store: any) => store.account);
     return (
         <Route {...props} render={
             ({ location }) => 

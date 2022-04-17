@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { TUser } from "../../../utils/types";
+
 import { updateUserInfo, setUserInfo } from "../../../services/AuthService";
 
 import ProfileNavigation from '../../../ui/ProfileNavigation/ProfileNavigation';
@@ -9,12 +11,12 @@ import styles from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   
-    const { user } = useSelector((store) => store.account);
+    const { user } = useSelector((store: any) => store.account);
 
     const [ values, setValues ] = useState((user?.user) ? { name: user.user.name, email: user.user.email, password: "" } : { name: "", email: "", password: ""})
     const [ changed, setChanged ] = useState(false);
 
-    const resetValues = (user) => {
+    const resetValues = (user: TUser) => {
         setValues({ name: user?.name ?? "", email: user?.email ?? "", password: "" } );
         setChanged(false);
     };
@@ -25,19 +27,18 @@ const ProfileForm = () => {
         resetValues(user.user);
     }, [dispatch, user]);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValues({ ...values, [event.target.name]: event.target.value });
+        setChanged(true);
+    };
+
+    const onSubmit = () => {
         dispatch(setUserInfo(values.name, values.email, values.password));
         resetValues(user);
         setChanged(false);
     };
 
-    const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
-        setChanged(true);
-    };
-
-    const onReset = (e) => {
+    const onReset = () => {
         resetValues(user);
     };
 
@@ -52,8 +53,8 @@ const ProfileForm = () => {
                     {
                         (changed) && (
                             <div className={styles.buttons}>
-                                <Button type="primary" onClick={onSubmit} className={styles.button} size="medium">Сохранить</Button>
-                                <Button type="secondary" onClick={onReset} className={styles.button} size="medium">Отмена</Button>
+                                <Button type="primary" onClick={() => onSubmit()} size="medium">Сохранить</Button>
+                                <Button type="secondary" onClick={() => onReset()} size="medium">Отмена</Button>
                             </div>
                         )
                     }

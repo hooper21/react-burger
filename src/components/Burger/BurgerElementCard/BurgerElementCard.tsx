@@ -1,15 +1,21 @@
-import { useRef } from "react";
+import { useRef, FC } from "react";
 import { useDispatch } from "react-redux";
 import { changeBurgerIngredients } from "../../../services/actions/order";
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
 
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../../utils/types';
+import { TBurgerElement } from "../../../utils/types";
 
 import styles from './BurgerElementCard.module.css';
 
-const BurgerElementCard = ({ item, index, state, onRemove }) => {
+type TBurgerElementCard = {
+    item: TBurgerElement;
+    index?: string;
+    state?: "top" | "bottom" | undefined;
+    onRemove?: any;
+};
+
+const BurgerElementCard: FC<TBurgerElementCard> = ({ item, index, state, onRemove }: TBurgerElementCard) => {
 
     const dispatch = useDispatch();
     const ref = useRef(null);
@@ -26,7 +32,7 @@ const BurgerElementCard = ({ item, index, state, onRemove }) => {
         collect: (monitor) => ({
             isOver: monitor.isOver()
         }),
-        drop: (item) => {
+        drop: (item: TBurgerElement) => {
             if (item.index === index) return;
             dispatch(changeBurgerIngredients({selected: item.index, target: index }));
         },
@@ -53,18 +59,10 @@ const BurgerElementCard = ({ item, index, state, onRemove }) => {
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
-                className={styles.element}
                 handleClose={onRemove}
             />
         </article>
     )
-};
-
-BurgerElementCard.propTypes = {
-    item: ingredientPropTypes.isRequired,
-    index: PropTypes.string,
-    state: PropTypes.string,
-    onRemove: PropTypes.func,
 };
 
 export default BurgerElementCard;
