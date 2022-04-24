@@ -4,11 +4,11 @@ import { getIngredientsRequest, getIngredientsSuccess, getIngredientsFailed } fr
 import { getOrderRequest, getOrderSuccess, getOrderFailed } from "./actions/order";
 
 export const getIngredients = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         dispatch(getIngredientsRequest());
         http
             .get("/ingredients")
-            .then((response) => {
+            .then((response: any) => {
                 if (response?.success) {
                     const ingredients = response.data;
                     dispatch(getIngredientsSuccess(ingredients));
@@ -23,12 +23,12 @@ export const getIngredients = () => {
       };
 };
 
-export const getOrderNumber = (ids) => {
-    return (dispatch) => {
+export const getOrderNumber = (ids: string[]) => {
+    return (dispatch: any) => {
         dispatch(getOrderRequest());
         http
             .post("/orders", { ingredients: ids })
-            .then((response) => {
+            .then((response: any) => {
                 if (response?.success) {
                     var orderData = { name: response.name, ...response.order};
                     dispatch(getOrderSuccess(orderData))
@@ -45,10 +45,10 @@ export const getOrderNumber = (ids) => {
     };
 };
 
-export const redirectTo = (url) => {
+export const redirectTo = (url: any) => {
     window.location = url;
 };
 
-export const setLocation = (url) => {
-    window.history.pushState({}, undefined, url);
+export const setLocation = (url: any) => {
+    window.history.pushState({}, "", url);
 };

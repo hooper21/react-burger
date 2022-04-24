@@ -7,7 +7,7 @@ import styles from './ProfileNavigation.module.css';
 const ProfileNavigation = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const onLogoutClick = (e) => {
+    const onLogoutClick = (e: any) => {
         e.preventDefault();
         dispatch(logoutUser(history));
     };

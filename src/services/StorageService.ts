@@ -2,23 +2,24 @@ import { STORAGE_USER_KEY } from '../config';
 
 class StorageService {
 
-    get(key) {
+    get(key: string) {
         return localStorage.getItem(key);
     }
 
-    set(key, value) {
+    set(key: string, value: string) {
         localStorage.setItem(key, value);
     }
 
-    remove(key) {
+    remove(key: string) {
         localStorage.removeItem(key);
     }
 
     getUser() {
-        return JSON.parse(this.get(STORAGE_USER_KEY));
+        const data = this.get(STORAGE_USER_KEY);
+        return (data) ? JSON.parse(data) : null;
     }
 
-    setUser(user) {
+    setUser(user: any) {
         this.set(STORAGE_USER_KEY, JSON.stringify(user));
     }
 
@@ -34,7 +35,7 @@ class StorageService {
         return this.getUser()?.refreshToken;
     }
 
-    setLocalAccessToken(token) {
+    setLocalAccessToken(token: string) {
         let user = this.getUser();
         user.accessToken = token;
         this.setUser(user);
