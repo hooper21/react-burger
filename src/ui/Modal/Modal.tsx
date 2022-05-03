@@ -6,16 +6,16 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./Modal.module.css";
 
 type TParams = {
-    title?: string,
-    children?: any
-    onClose?: any
+    title?: string;
+    children?: any;
+    onClose?: () => void;
 };
 
 const Modal: FC<TParams> = ({ title, onClose, children }: TParams) => {
 
     React.useEffect(() => {
-        const closeOnEscape = (evt: any) => {
-            if (evt.key === 'Escape') {
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && onClose) {
                 onClose();
             };
         };

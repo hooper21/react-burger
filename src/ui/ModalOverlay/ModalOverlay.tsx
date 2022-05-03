@@ -2,7 +2,7 @@ import { FC } from "react";
 import styles from "./ModalOverlay.module.css";
 
 type TParams = {
-  onClose?: any,
+  onClose?: () => void;
 };
 
 const ModalOverlay: FC<TParams> = ({ onClose }: TParams) => {

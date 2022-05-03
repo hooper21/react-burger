@@ -12,7 +12,7 @@ type TBurgerElementCard = {
     item: TBurgerElement;
     index?: string;
     state?: "top" | "bottom" | undefined;
-    onRemove?: any;
+    onRemove?: () => void;
 };
 
 const BurgerElementCard: FC<TBurgerElementCard> = ({ item, index, state, onRemove }: TBurgerElementCard) => {
