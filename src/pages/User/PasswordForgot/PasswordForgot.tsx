@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent  } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
 import { forgotPassword } from "../../../services/AuthService";
@@ -14,13 +14,13 @@ const ForgotPasswordPage = () => {
     const [ values, setValues ] = useState({ email: USER_TEST_EMAIL })
 
     const history = useHistory();
-    const { error } = useSelector((store) => store.account);
+    const { error } = useSelector((store: any) => store.account);
     const hasError = (error) ? true : false;
 
-    const onChange = (e) => setValues({ ...values, [e.target.name]: e.target.value });
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(forgotPassword(values.email, history))
     };
 

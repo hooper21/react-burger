@@ -14,19 +14,19 @@ import {
 export const currentUser = () => Storage.getUser();
 
 export const restoreUser = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         const user = currentUser();
         dispatch(loginSuccess(user));
     };
 };
 
-export const loginUser = (email, password, history) => {
-    return (dispatch) => {
+export const loginUser = (email: string, password: string, history: any) => {
+    return (dispatch: any) => {
         dispatch(loginRequest());
         http
             .post("/auth/login", { email, password })
             .then(
-                (response) => {
+                (response: any) => {
                     if (response?.success) {
                         delete(response.success);
                         const userData = { ...response };
@@ -46,8 +46,8 @@ export const loginUser = (email, password, history) => {
       };
 };
 
-export const logoutUser = (history) => {
-    return (dispatch) => {
+export const logoutUser = (history: any) => {
+    return (dispatch: any) => {
         Storage.removeUser();
         dispatch(loginSuccess(null));
         history.replace({ pathname: '/' });
@@ -57,7 +57,7 @@ export const logoutUser = (history) => {
 export const refreshTocken = () => {
     (async () => {
         try {
-            const res = await http.post("/auth/token", {
+            const res: any = await http.post("/auth/token", {
                 token: Storage.getLocalRefreshToken(),
             });
             const { accessToken } = res;
@@ -70,13 +70,13 @@ export const refreshTocken = () => {
     })();
 };
 
-export const registerUser = (name, email, password, history) => {
-    return (dispatch) => {
+export const registerUser = (name: string, email: string, password: string, history: any) => {
+    return (dispatch: any) => {
         dispatch(registerRequest());
         http
             .post("/auth/register", { name, email, password })
             .then(
-                (response) => {
+                (response: any) => {
                     if (response?.success) {
                         delete(response.success);
                         const userData = { ...response };
@@ -101,13 +101,13 @@ export const registerUser = (name, email, password, history) => {
       };
 };
 
-export const forgotPassword = (email, history) => {
-    return (dispatch) => {
+export const forgotPassword = (email: string, history: any) => {
+    return (dispatch: any) => {
         dispatch(forgotPasswordRequest());
         http
             .post("/password-reset", { email })
             .then(
-                (response) => {
+                (response: any) => {
                     if (response?.success) {
                         dispatch(forgotPasswordSuccess());
                         history.replace({ pathname: "/reset-password" });
@@ -125,13 +125,13 @@ export const forgotPassword = (email, history) => {
       };
 };
 
-export const resetPassword = (token, password, history) => {
-    return (dispatch) => {
+export const resetPassword = (token: string, password: string, history: any) => {
+    return (dispatch: any) => {
         dispatch(resetPasswordRequest());
         http
             .post("/password-reset/reset", { token, password })
             .then(
-                (response) => {
+                (response: any) => {
                     if (response?.success) {
                         dispatch(resetPasswordSuccess());
                         history.replace({ pathname: "/login" });
@@ -150,12 +150,12 @@ export const resetPassword = (token, password, history) => {
 };
 
 export const updateUserInfo = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         dispatch(getUserInfoRequest());
         http
             .get("/auth/user")
             .then(
-                (response) => {
+                (response: any) => {
                     if (response?.success) {
                         delete(response.success);
                         const user = Storage.getUser();
@@ -176,13 +176,13 @@ export const updateUserInfo = () => {
       };
 };
 
-export const setUserInfo = (name, email, password) => {
-    return (dispatch) => {
+export const setUserInfo = (name: string, email: string, password: string) => {
+    return (dispatch: any) => {
         dispatch(setUserInfoRequest());
         http
             .patch("/auth/user", { name, email, password })
             .then(
-                (response) => {
+                (response: any) => {
                     if (response?.success) {
                         delete(response.success);
                         const user = Storage.getUser();

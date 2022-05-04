@@ -1,9 +1,14 @@
 import React from "react";
-import {ingredientPropTypes} from '../../../utils/types';
 
-import styles from "./IngredientsDetails.module.css";
+import styles from "./IngredientDetails.module.css";
 
-function IngredientsDetails({ item }) {
+import { TIngredient } from "../../../utils/types";
+
+type TIngredientsDetails ={
+    item: TIngredient;
+};
+
+function IngredientsDetails( { item }: TIngredientsDetails ) {
   return (
     <article className={styles.card + " pb-15 pr-10 pl-10"}>
         <img src={item.image} alt={item.name} className={styles.image + " mb-4"} />
@@ -25,9 +30,5 @@ function IngredientsDetails({ item }) {
     </article>
   );
 }
-
-IngredientsDetails.propTypes = {
-    item: ingredientPropTypes.isRequired,
-};
 
 export default IngredientsDetails;

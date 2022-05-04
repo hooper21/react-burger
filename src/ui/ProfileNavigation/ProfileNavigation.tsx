@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, Link, useLocation, useHistory } from 'react-router-dom';
 import { logoutUser } from "../../services/AuthService";
@@ -7,8 +8,8 @@ import styles from './ProfileNavigation.module.css';
 const ProfileNavigation = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const onLogoutClick = (e) => {
-        e.preventDefault();
+
+    const onLogoutClick = (event: MouseEvent) => {
         dispatch(logoutUser(history));
     };
 

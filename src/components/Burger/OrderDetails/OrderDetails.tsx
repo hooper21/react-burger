@@ -1,10 +1,13 @@
-
-import { orderPropTypes } from '../../../utils/types';
+import { TOrder } from "../../../utils/types";
 
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import styles from './OrderDetails.module.css';
 
-const OrderDetails = ({ order }) => {
+type TOrderDetails = {
+    order: TOrder;
+};
+
+const OrderDetails = ({ order }: TOrderDetails) => {
 
     return (
         <div className={styles.card + " pt-15 pb-30 pr-25 pl-25"}>
@@ -24,10 +27,6 @@ const OrderDetails = ({ order }) => {
         </div>
     )
      
-};
-
-OrderDetails.propTypes = {
-    order: orderPropTypes.isRequired,
 };
 
 export default OrderDetails;

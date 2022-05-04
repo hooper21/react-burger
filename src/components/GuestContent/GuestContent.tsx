@@ -1,10 +1,8 @@
 import { Fragment } from "react";
 import { useSelector } from 'react-redux';
-import { currentUser } from "../../services/AuthService";
 
-const GuestContent = ({ children }) => {
-    const { user } = useSelector((store) => store.account);
-    //const user = currentUser();
+const GuestContent = ({ children }: any) => {
+    const { user } = useSelector((store: any) => store.account);
     if (user) {
         return null;
     };

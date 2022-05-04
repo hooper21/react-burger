@@ -10,30 +10,32 @@ import Modal from '../../../ui/Modal/Modal';
 import BurgerIngredientCard from "../BurgerIngredientCard/BurgerIngredientCard";
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
+import { TIngredient, TKeyedStrings, TKeyedValues } from "../../../utils/types";
+
 import styles from './BurgerIngredients.module.css';
 
 const BurgerIngredients = () => {
 
-    const ingredients = useSelector((store) => store.ingredients);
+    const ingredients = useSelector((store: any) => store.ingredients);
     const { error, currentTab } = ingredients;
-    const burger = useSelector((store) => store.burger);
-    const currentIngredient = useSelector((store) => store.currentIngredient);
+    const burger = useSelector((store: any) => store.burger);
+    const currentIngredient = useSelector((store: any) => store.currentIngredient);
     const dispatch = useDispatch();
 
-    const tabs = {
+    const tabs: TKeyedStrings = {
         "bun": "Булки",
         "sauce": "Соусы",
         "main": "Начинки",
     };
 
-    const containerRef = useRef(null);
-    const tabRefs = {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const tabRefs: TKeyedValues = {
         "bun": useRef(null),
         "sauce": useRef(null),
         "main": useRef(null),
     };
 
-    const onTabClick = (type) => {
+    const onTabClick = (type: string) => {
         dispatch(setCurrentTab(type));
         var tagRef = tabRefs[type].current ?? null;
         return tagRef && tagRef.scrollIntoView();
@@ -45,7 +47,10 @@ const BurgerIngredients = () => {
     };
 
     const onScroll = () => {
-        const containerTop = containerRef.current.getBoundingClientRect().y;
+        const containerTop = containerRef.current?.getBoundingClientRect().y;
+        if (!containerTop) {
+            return;
+        }
         let nextTab = "bun";
         for (let tab in tabRefs) {
             const tagTop = tabRefs[tab].current.getBoundingClientRect().y;
@@ -84,7 +89,7 @@ const BurgerIngredients = () => {
             <nav className={`${styles.tabs} mt-5 mb-10`}>
                 {
                     Object.keys(tabs).map((type) => (
-                        <Tab key={type} active={type === currentTab} onClick={() => onTabClick(type)}>
+                        <Tab key={type} value={type} active={type === currentTab} onClick={() => onTabClick(type)}>
                             {tabs[type]}
                         </Tab>
                     ))
@@ -101,7 +106,7 @@ const BurgerIngredients = () => {
                             <ul className={styles.list}>
                                 {
                                     ( ingredients.items.length ) ?
-                                    ( ingredients.items.map((item) => {
+                                    ( ingredients.items.map((item: TIngredient) => {
                                         const count = (item.type === "bun") ? ((burger.bun === item._id) ? 1 : 0) : Object.keys(burger.items).filter((uuid) => burger.items[uuid] === item._id).length;
                                         return (item.type === type) ?
                                                 (

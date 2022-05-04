@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { loginUser } from "../../../services/AuthService";
 
 import { USER_TEST_EMAIL, USER_TEST_PASSWORD } from '../../../config';
 
-import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./Login.module.css";
 
 function Login() {
@@ -15,13 +15,13 @@ function Login() {
     const [ values, setValues ] = useState({ email: USER_TEST_EMAIL, password: USER_TEST_PASSWORD })
 
     const history = useHistory();
-    const { error } = useSelector((store) => store.account);
+    const { error } = useSelector((store: any) => store.account);
     const hasError = (error) ? true : false;
 
-    const onChange = (e) => setValues({ ...values, [e.target.name]: e.target.value });
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(loginUser(values.email, values.password, history))
     }
 
@@ -30,7 +30,7 @@ function Login() {
             <h1 className="text text_type_main-medium mb-6">Вход</h1>
             <form className={styles.form} onSubmit={onSubmit}>
                 <Input type="email" name="email" value={values.email} onChange={onChange} size="default" placeholder="E-mail" error={hasError} errorText={error} />
-                <PasswordInput name="password" value={values.password} onChange={onChange} size="default" placeholder="Введите пароль" />
+                <Input type="password" name="password" value={values.password} onChange={onChange} size="default" placeholder="Введите пароль" />
                 <Button type="primary" size="medium">Войти</Button>
             </form>
             <div className={styles.footer + " mt-20"}>

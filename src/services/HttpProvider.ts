@@ -12,7 +12,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-    (config) => {
+    (config: any) => {
         const token = Storage.getLocalAccessToken();
         if (token) {
             config.headers["Authorization"] = token;
@@ -26,7 +26,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     
-    (response) => {
+    (response: any) => {
         const contentType = response?.headers["content-type"] ?? "";
         if (contentType.indexOf("application/json") !== -1) {
             return response?.data ?? response;
@@ -34,7 +34,7 @@ instance.interceptors.response.use(
         return response;
     },
 
-    async (error) => {
+    async (error: any) => {
         const originalConfig = error.config;
         if (originalConfig && (originalConfig.url !== "/auth/logout") && (originalConfig.url !== "/auth/token") && error.response) {
             // Access Token was expired
@@ -43,10 +43,10 @@ instance.interceptors.response.use(
                 const refreshToken = Storage.getLocalRefreshToken();
                 if (refreshToken) {
                     try {
-                        const res = await instance.post("/auth/token", {
+                        const res: any = await instance.post("/auth/token", {
                             token: Storage.getLocalRefreshToken(),
                         });
-                        const { accessToken } = res;
+                        const { accessToken} = res;
                         Storage.setLocalAccessToken(accessToken);
                         return instance(originalConfig);
                     } catch (_error) {

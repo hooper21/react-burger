@@ -10,7 +10,7 @@ import { getIngredients } from "../../services/DataService";
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import GuestRoute from '../GuestRoute/GuestRoute';
 
-import { AppHeader, Spinner } from '../../ui/';
+import { AppHeader, Spinner } from '../../ui';
 import { HomePage, IngredientPage, ProfileForm, ProfileOrders, Login, Register, NotFound } from  '../../pages';
 import PasswordForgot from  '../../pages/User/PasswordForgot/PasswordForgot';
 import PasswordReset from  '../../pages/User/PasswordReset/PasswordReset';
@@ -23,7 +23,7 @@ function App() {
         dispatch(getIngredients());
     }, [dispatch]);
 
-    const loading = useSelector((store) => ((store.ingredients.loading ?? false) || (store.order.loading ?? false) || (store.account.loading ?? false)));
+    const loading: boolean = useSelector((store: any) => ((store.ingredients.loading ?? false) || (store.order.loading ?? false) || (store.account.loading ?? false)));
 
     return (
         <>

@@ -5,12 +5,17 @@ import { setCurrentIngredient } from "../../../services/actions/ingredients";
 import { setLocation } from "../../../services/DataService";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import PropTypes from 'prop-types';
-import {ingredientPropTypes} from '../../../utils/types';
+import { TIngredient } from '../../../utils/types';
 
 import styles from './BurgerIngredientCard.module.css';
 
-const BurgerIngredientCard = ({ item, count }) => {
+
+type TBurgerIngredientCard ={
+    item: TIngredient;
+    count: number;
+};
+
+const BurgerIngredientCard = ({ item, count }: TBurgerIngredientCard) => {
 
     const dispatch = useDispatch();
 
@@ -37,22 +42,15 @@ const BurgerIngredientCard = ({ item, count }) => {
                 <div className={`${styles.title} text text_type_main-default mt-1`}>{item.name}</div>
                 {
                     (count > 0) && (
-                        <Counter count={count} size="default" className="mr-2" />
+                        <div className="mr-2">
+                            <Counter count={count} size="default" />
+                        </div>
                     )
                 }
             </article>
         </Fragment>
     );
 
-};
-
-BurgerIngredientCard.propTypes = {
-    item: ingredientPropTypes.isRequired,
-    count: PropTypes.number,
-};
-
-BurgerIngredientCard.defaultProps = {
-    count: 0
 };
 
 export default BurgerIngredientCard;

@@ -1,17 +1,21 @@
-import React, { Fragment } from "react";
+import React, { Fragment, FC } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from "./Modal.module.css";
 
+type TParams = {
+    title?: string;
+    children?: any;
+    onClose?: () => void;
+};
 
-function Modal({ title, onClose, children }) {
+const Modal: FC<TParams> = ({ title, onClose, children }: TParams) => {
 
     React.useEffect(() => {
-        const closeOnEscape = (evt) => {
-            if (evt.key === 'Escape') {
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && onClose) {
                 onClose();
             };
         };
@@ -20,6 +24,8 @@ function Modal({ title, onClose, children }) {
             window.removeEventListener('keydown', closeOnEscape);
         }
     }, [onClose]);
+
+    const modal: Element | null = document.getElementById("modal") ?? new Element();
 
     return ReactDOM.createPortal(
         (
@@ -36,16 +42,9 @@ function Modal({ title, onClose, children }) {
                 </div>
             </Fragment>
         ),
-        document.getElementById("modal")
+        modal
       );
 
-};
-
-
-Modal.propTypes = {
-    title: PropTypes.string,
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
 };
 
 export default Modal;
