@@ -1,7 +1,8 @@
 import { initialState } from "./rootReducer";
 import { ACTION_TYPES } from "../actions/types";
+import { TAccountActions } from "../actions/account";
 
-const accountReducer = (state = initialState.account, action) => {
+const accountReducer = (state = initialState.account, action: TAccountActions) => {
 
     switch (action.type) {
         

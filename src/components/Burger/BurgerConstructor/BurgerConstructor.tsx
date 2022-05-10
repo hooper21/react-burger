@@ -1,7 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
-import { getOrderSuccess, clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient, hideOrderErrors } from "../../../services/actions/order";
+import { getOrderSuccess, hideOrderErrors } from "../../../services/actions/order";
+import { clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient } from "../../../services/actions/burger";
 import { getOrderNumber } from "../../../services/DataService";
 
 import { TIngredient } from "../../../utils/types";

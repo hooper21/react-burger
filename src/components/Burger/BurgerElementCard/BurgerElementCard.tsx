@@ -1,6 +1,6 @@
 import { useRef, FC } from "react";
 import { useDispatch } from "react-redux";
-import { changeBurgerIngredients } from "../../../services/actions/order";
+import { changeBurgerIngredients } from "../../../services/actions/burger";
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
 

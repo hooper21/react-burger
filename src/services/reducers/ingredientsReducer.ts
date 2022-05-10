@@ -1,7 +1,8 @@
 import { initialState } from "./rootReducer";
 import { ACTION_TYPES } from "../actions/types";
+import { TIngredientsActions } from "../actions/ingredients";
 
-const ingredientsReducer = (state = initialState.ingredients, action) => {
+const ingredientsReducer = (state = initialState.ingredients, action: TIngredientsActions) => {
     switch (action.type) {
         case ACTION_TYPES.GET_INGREDIENTS_REQUEST:
             return {

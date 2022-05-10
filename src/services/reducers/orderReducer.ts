@@ -1,7 +1,7 @@
 import { initialState } from "./rootReducer";
 import { ACTION_TYPES } from "../actions/types";
 
-const orderReducer = (state = initialState.order, action) => {
+const orderReducer = (state = initialState.order, action: any) => {
     switch (action.type) {
         case ACTION_TYPES.GET_ORDER_REQUEST:
             return {

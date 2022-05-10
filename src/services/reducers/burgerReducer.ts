@@ -1,16 +1,15 @@
 import { initialState } from "./rootReducer";
 import { ACTION_TYPES } from "../actions/types";
+import { TBurgerActions } from "../actions/burger";
+import { TBurgerElements } from '../../utils/types'
 
-const burgerReducer = (state = initialState.burger, action) => {
+export type TBurgerState = {
+    bun: string | null | undefined,
+    items: TBurgerElements,
+};
+
+const burgerReducer = (state = initialState.burger, action: TBurgerActions): TBurgerState => {
     switch (action.type) {
-        /*
-        case ACTION_TYPES.BURGER_SET_INGREDIENTS:
-            return {
-                ...state,
-                bun: action.items.find((item) => item.type === "bun")?._id,
-                items: action.items.filter((item) => item.type !== "bun").reduce((items, item) => ({ ...items, [nanoid()]: item._id }), {}),
-            };
-        */
         case ACTION_TYPES.BURGER_CLEAR:
             return initialState.burger;
         case ACTION_TYPES.BURGER_SET_BUN: 
@@ -33,15 +32,15 @@ const burgerReducer = (state = initialState.burger, action) => {
                 ...state,
                 items: Object.keys(state.items).filter((uuid) => uuid !== action.uuid).reduce((items, uuid) => ({ ...items, [uuid]: state.items[uuid] }), {}),
             };
-        case ACTION_TYPES.BURGER_SET_INGREDIENTS: 
-            return {
-                ...state,
-                items: { ...action.items },
-            };
+        // case ACTION_TYPES.BURGER_SET_INGREDIENTS: 
+        //     return {
+        //         ...state,
+        //         items: { ...action.items },
+        //     };
         case ACTION_TYPES.BURGER_REPLACE_INGREDIENTS: {
             const { selected, target } = action;
             let moveDown = false;
-            const items = Object.keys(state.items).reduce((items, uuid) => {
+            const items = Object.keys(state.items).reduce((items: TBurgerElements, uuid: string) => {
                 if (uuid === selected) {
                     moveDown = true;
                     return items;

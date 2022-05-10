@@ -27,7 +27,12 @@ export type TUser = {
 
 export type TBurgerElement = TIngredient & {
     index?: string;
-}
+};
+
+export type TBurgerElements = {
+    //[id: string]: TBurgerElement;
+    [id: string]: string;
+};
 
 
 export type TKeyedStrings = { 
