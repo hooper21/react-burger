@@ -1,7 +1,5 @@
-//import { nanoid } from '@reduxjs/toolkit';
+import { ACTION_TYPES } from "../action-types";
 import { TOrder } from "../../utils/types";
-import { ACTION_TYPES } from "./types";
-
 
 export interface IGetOrderRequest {
     readonly type: typeof ACTION_TYPES.GET_ORDER_REQUEST;

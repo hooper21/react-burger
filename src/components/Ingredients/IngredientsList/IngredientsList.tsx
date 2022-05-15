@@ -7,14 +7,14 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
 import Modal from '../../../ui/Modal/Modal';
-import BurgerIngredientCard from "../BurgerIngredientCard/BurgerIngredientCard";
+import IngredientCard from "../IngredientCard/IngredientCard";
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 import { TIngredient, TKeyedStrings, TKeyedValues } from "../../../utils/types";
 
-import styles from './BurgerIngredients.module.css';
+import styles from './IngredientsList.module.css';
 
-const BurgerIngredients = () => {
+const IngredientsList = () => {
 
     const ingredients = useSelector((store: any) => store.ingredients);
     const { error, currentTab } = ingredients;
@@ -111,7 +111,7 @@ const BurgerIngredients = () => {
                                         return (item.type === type) ?
                                                 (
                                                     <li key={item._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
-                                                        <BurgerIngredientCard item={item} count={count} />
+                                                        <IngredientCard item={item} count={count} />
                                                     </li>
                                                 ) : null;
                                     })) : null
@@ -134,4 +134,4 @@ const BurgerIngredients = () => {
     )
 }
 
-export default BurgerIngredients;
+export default IngredientsList;

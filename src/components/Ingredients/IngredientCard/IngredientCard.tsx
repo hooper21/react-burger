@@ -7,7 +7,7 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 
 import { TIngredient } from '../../../utils/types';
 
-import styles from './BurgerIngredientCard.module.css';
+import styles from './IngredientCard.module.css';
 
 
 type TBurgerIngredientCard ={
@@ -15,7 +15,7 @@ type TBurgerIngredientCard ={
     count: number;
 };
 
-const BurgerIngredientCard = ({ item, count }: TBurgerIngredientCard) => {
+const IngredientCard = ({ item, count }: TBurgerIngredientCard) => {
 
     const dispatch = useDispatch();
 
@@ -53,4 +53,4 @@ const BurgerIngredientCard = ({ item, count }: TBurgerIngredientCard) => {
 
 };
 
-export default BurgerIngredientCard;
+export default IngredientCard;

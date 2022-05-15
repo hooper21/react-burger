@@ -1,8 +1,12 @@
-import { initialState } from "./rootReducer";
-import { ACTION_TYPES } from "../actions/types";
+import { ACTION_TYPES } from "../action-types";
 import { TIngredientsActions } from "../actions/ingredients";
+import { TIngredient } from '../../utils/types'
 
-const currentIngredientReducer = (state = initialState.currentIngredient, action: TIngredientsActions) => {
+
+const initialState: TIngredient | null| undefined = null;
+
+export const currentIngredientReducer = (state = initialState, action: TIngredientsActions) => {
+    
     switch (action.type) {
 
       case ACTION_TYPES.SET_CURRENT_INGREDIENT:
@@ -10,7 +14,7 @@ const currentIngredientReducer = (state = initialState.currentIngredient, action
 
       default:
           return state;
+          
     };
-};
 
-export default currentIngredientReducer;
+};

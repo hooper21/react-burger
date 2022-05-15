@@ -9,7 +9,7 @@ import { USER_TEST_EMAIL, USER_TEST_PASSWORD } from '../../../config';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./Login.module.css";
 
-function Login() {
+const Login = () => {
   
     const dispatch = useDispatch();
     const [ values, setValues ] = useState({ email: USER_TEST_EMAIL, password: USER_TEST_PASSWORD })

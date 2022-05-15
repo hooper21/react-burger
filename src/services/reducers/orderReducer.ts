@@ -1,8 +1,23 @@
-import { initialState } from "./rootReducer";
-import { ACTION_TYPES } from "../actions/types";
+import { ACTION_TYPES } from "../action-types";
+import { TOrder } from '../../utils/types'
 
-const orderReducer = (state = initialState.order, action: any) => {
+
+type TOrderState = {
+    order: TOrder | null,
+    loading: boolean,
+    error: string | null,
+};
+
+const initialState: TOrderState = {
+    order: null,
+    loading: false,
+    error: null,
+};
+
+export const orderReducer = (state = initialState, action: any) => {
+
     switch (action.type) {
+
         case ACTION_TYPES.GET_ORDER_REQUEST:
             return {
                 ...state,
@@ -10,12 +25,14 @@ const orderReducer = (state = initialState.order, action: any) => {
                 loading: true,
                 error: null,
             };
+
         case ACTION_TYPES.GET_ORDER_SUCCESS: 
             return {
                 ...state,
                 order: action.order,
                 loading: false,
             };
+
         case ACTION_TYPES.GET_ORDER_FAILED:
             return {
                 ...state,
@@ -23,6 +40,7 @@ const orderReducer = (state = initialState.order, action: any) => {
                 loading: false,
                 error: action.error,
             };
+
         case ACTION_TYPES.CLEAR_ERRORS:
             return {
                 ...state,
@@ -31,7 +49,7 @@ const orderReducer = (state = initialState.order, action: any) => {
 
         default:
             return state;
+            
     };
-};
 
-export default orderReducer;
+};

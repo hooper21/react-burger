@@ -1,5 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { ACTION_TYPES } from "./types";
+import { ACTION_TYPES } from "../action-types";
 
 
 export interface IClearBurger {

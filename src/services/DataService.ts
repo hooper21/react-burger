@@ -1,7 +1,6 @@
-import http from "./HttpProvider";
-
 import { getIngredientsRequest, getIngredientsSuccess, getIngredientsFailed } from "./actions/ingredients";
 import { getOrderRequest, getOrderSuccess, getOrderFailed } from "./actions/order";
+import http from "./HttpProvider";
 
 export const getIngredients = () => {
     return (dispatch: any) => {

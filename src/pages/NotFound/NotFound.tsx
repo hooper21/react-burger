@@ -3,6 +3,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './NotFound.module.css';
 
 const NotFound = () => {
+    
     const history = useHistory();
 
     return (

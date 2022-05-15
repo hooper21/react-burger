@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "./types";
+import { ACTION_TYPES } from "../action-types";
 import { TIngredient } from "../../utils/types";
 
 export interface IGetIngredientsRequest {

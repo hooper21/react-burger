@@ -1,5 +1,4 @@
-import { initialState } from "./rootReducer";
-import { ACTION_TYPES } from "../actions/types";
+import { ACTION_TYPES } from "../action-types";
 import { TBurgerActions } from "../actions/burger";
 import { TBurgerElements } from '../../utils/types'
 
@@ -8,35 +7,42 @@ export type TBurgerState = {
     items: TBurgerElements,
 };
 
-const burgerReducer = (state = initialState.burger, action: TBurgerActions): TBurgerState => {
+const initialState: TBurgerState = {
+    bun: null,
+    items: {},
+};
+
+export const burgerReducer = (state = initialState, action: TBurgerActions): TBurgerState => {
+
     switch (action.type) {
+
         case ACTION_TYPES.BURGER_CLEAR:
-            return initialState.burger;
+            return initialState;
+
         case ACTION_TYPES.BURGER_SET_BUN: 
             return {
                 ...state,
                 bun: action.id,
             };
+
         case ACTION_TYPES.BURGER_REMOVE_BUN:
             return {
                 ...state,
                 bun: null,
             };
+
         case ACTION_TYPES.BURGER_ADD_INGREDIENT: 
             return {
                 ...state,
                 items: { ...state.items, [action.uuid]: action.id },
             };
+
         case ACTION_TYPES.BURGER_REMOVE_INGREDIENT:
             return {
                 ...state,
                 items: Object.keys(state.items).filter((uuid) => uuid !== action.uuid).reduce((items, uuid) => ({ ...items, [uuid]: state.items[uuid] }), {}),
             };
-        // case ACTION_TYPES.BURGER_SET_INGREDIENTS: 
-        //     return {
-        //         ...state,
-        //         items: { ...action.items },
-        //     };
+
         case ACTION_TYPES.BURGER_REPLACE_INGREDIENTS: {
             const { selected, target } = action;
             let moveDown = false;
@@ -65,7 +71,9 @@ const burgerReducer = (state = initialState.burger, action: TBurgerActions): TBu
             
         default:
             return state;
+            
     };
+
 };
 
 export default burgerReducer;
