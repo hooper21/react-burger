@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { TUser } from "../../../utils/types";
 
 import { updateUserInfo, setUserInfo } from "../../../services/AuthService";
@@ -11,7 +11,7 @@ import styles from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   
-    const { user } = useSelector((store: any) => store.account);
+    const { user } = useAppSelector((store: any) => store.account);
 
     const [ values, setValues ] = useState((user?.user) ? { name: user.user.name, email: user.user.email, password: "" } : { name: "", email: "", password: ""})
     const [ changed, setChanged ] = useState(false);
@@ -21,7 +21,7 @@ const ProfileForm = () => {
         setChanged(false);
     };
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(updateUserInfo());
         resetValues(user.user);

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from '../../../services/types/hooks';
 import { useDrag } from 'react-dnd';
 import { setCurrentIngredient } from "../../../services/actions/ingredients";
 import { setLocation } from "../../../services/DataService";
@@ -17,7 +17,7 @@ type TBurgerIngredientCard ={
 
 const IngredientCard = ({ item, count }: TBurgerIngredientCard) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [, dragRef] = useDrag({
         type: "ingredient",

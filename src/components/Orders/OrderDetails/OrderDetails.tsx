@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { FC } from "react";
+import { useAppSelector } from '../../../services/types/hooks';
 import { TIngredient, TOrderInfo, getOrderStatusName, getDateToTitle } from '../../../utils/types';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -11,7 +11,7 @@ type TOrderProps = {
 
 const OrderDetails: FC<TOrderProps> = ({ item }: TOrderProps) => {
 
-    const ingredients = useSelector((store: any) => store.ingredients);
+    const ingredients = useAppSelector((store: any) => store.ingredients);
 
     if (!ingredients)
         return null;

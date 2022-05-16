@@ -1,5 +1,5 @@
-import React, { FC, useMemo, MouseEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { FC, useMemo } from "react";
+import { useAppSelector } from '../../../services/types/hooks';
 import { TIngredient, TOrderInfo, getOrderStatusName, getDateToTitle } from '../../../utils/types';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./OrderCard.module.css";
@@ -11,7 +11,7 @@ type TOrderProps = {
 
 const OrderItem: FC<TOrderProps> = ({ item, onClick }: TOrderProps) => {
 
-    const ingredients = useSelector((store: any) => store.ingredients);
+    const ingredients = useAppSelector((store: any) => store.ingredients);
 
     const ordersImages = useMemo(() => {
         if (ingredients) {

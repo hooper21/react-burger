@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { Link, useHistory } from "react-router-dom";
 
 import { loginUser } from "../../../services/AuthService";
@@ -11,11 +11,11 @@ import styles from "./Login.module.css";
 
 const Login = () => {
   
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [ values, setValues ] = useState({ email: USER_TEST_EMAIL, password: USER_TEST_PASSWORD })
 
     const history = useHistory();
-    const { error } = useSelector((store: any) => store.account);
+    const { error } = useAppSelector((store: any) => store.account);
     const hasError = (error) ? true : false;
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });

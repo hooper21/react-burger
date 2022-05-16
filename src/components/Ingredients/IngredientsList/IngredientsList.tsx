@@ -1,5 +1,5 @@
 import { Fragment,  useRef } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { setLocation } from "../../../services/DataService";
 
 import { setCurrentTab, setCurrentIngredient, hideIngredientsErrors } from "../../../services/actions/ingredients";
@@ -16,11 +16,10 @@ import styles from './IngredientsList.module.css';
 
 const IngredientsList = () => {
 
-    const ingredients = useSelector((store: any) => store.ingredients);
-    const { error, currentTab } = ingredients;
-    const burger = useSelector((store: any) => store.burger);
-    const currentIngredient = useSelector((store: any) => store.currentIngredient);
-    const dispatch = useDispatch();
+    const ingredients = useAppSelector((store: any) => store.ingredients);
+    const { error, currentTab, selected } = ingredients;
+    const burger = useAppSelector((store: any) => store.burger);
+    const dispatch = useAppDispatch();
 
     const tabs: TKeyedStrings = {
         "bun": "Булки",
@@ -123,9 +122,9 @@ const IngredientsList = () => {
             </div>
     
             {
-                ( currentIngredient ) ? (
+                ( selected ) ? (
                     <Modal onClose={onClose} title="Детали ингредиента">
-                        <IngredientDetails item={currentIngredient} />
+                        <IngredientDetails item={selected} />
                     </Modal>
                 ) : null
             }

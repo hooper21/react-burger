@@ -14,6 +14,7 @@ export type TIngredient = {
     __v: number,
 };
 
+export type TIngredients = TIngredient[];
 
 export type TOrder = {
     number: number,
@@ -21,10 +22,22 @@ export type TOrder = {
 };
 
 export type TUser = {
-    name: string,
     email: string,
-    password: string,
+    name: string,
+    password: string | undefined,
 };
+
+export type TUserAccount = {
+    accessToken: string,
+    refreshToken: string,
+    user: TUser
+};
+
+// export type TUser = {
+//     name: string,
+//     email: string,
+//     password: string,
+// };
 
 export type TBurgerElement = TIngredient & {
     index?: string;

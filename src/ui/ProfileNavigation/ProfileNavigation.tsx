@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../services/types/hooks';
 import { NavLink, Link, useLocation, useHistory } from 'react-router-dom';
 import { logoutUser } from "../../services/AuthService";
 
@@ -7,7 +7,7 @@ import styles from './ProfileNavigation.module.css';
 
 const ProfileNavigation = () => {
     const history = useHistory();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const onLogoutClick = (event: MouseEvent) => {
         dispatch(logoutUser(history));

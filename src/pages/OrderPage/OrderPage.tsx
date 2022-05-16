@@ -14,21 +14,20 @@ type TParams = {
 
 const OrderPage: FC = () => {
 
-    const isPrivatePage = !!useRouteMatch("/profile");
-
-    const { orders, selected } = useAppSelector((store: any) => isPrivatePage ? store.orders : store.statistic );
-
+    const { orders, connected, loading } = useAppSelector((store: any) => store.statistic );
     const dispatch = useAppDispatch();
     useEffect(() => {
-        if (!orders.connected) {
-            if (isPrivatePage)
-                dispatch(wsConnectionPrivateInit());
-            else
-                dispatch(wsConnectionPublicInit());
-        }
-    }, [ dispatch, orders.connected, isPrivatePage ]);
+        if (!connected) {
+            dispatch(wsConnectionPublicInit());
+        };
+    }, [ dispatch, connected ]);
 
     const { id } = useParams<TParams>();
+
+    if (!connected || loading) {
+        return null;
+    };
+    
     const order = (orders) ? orders.find((item: TOrderInfo) => item._id === id) : null;
 
     return (

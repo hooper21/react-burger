@@ -1,5 +1,5 @@
 import { ACTION_TYPES } from "../action-types";
-import { TUser } from "../../utils/types";
+import { TUser, TUserAccount } from "../../utils/types";
 
 export interface ILoginRequest {
     readonly type: typeof ACTION_TYPES.USER_REQUEST_SENT;
@@ -10,9 +10,9 @@ export const loginRequest = (): ILoginRequest => ({
 
 export interface ILoginSuccess {
     readonly type: typeof ACTION_TYPES.LOGIN_SUCCESS;
-    readonly user: TUser | null | undefined;
+    readonly user: TUserAccount | null | undefined;
 };
-export const loginSuccess = (user: TUser | null | undefined): ILoginSuccess => ({
+export const loginSuccess = (user: TUserAccount | null | undefined): ILoginSuccess => ({
     type: ACTION_TYPES.LOGIN_SUCCESS,
     user: user
 });

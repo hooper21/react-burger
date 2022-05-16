@@ -1,5 +1,6 @@
 import { AnyAction, Middleware, MiddlewareAPI } from 'redux';
 import { AppDispatch, RootState } from './types';
+import { TOrdersInfo } from '../utils/types';
 import { TWebSocketOrdersActions } from './actions/websocket';
 import Storage from "./StorageService";
 
@@ -10,7 +11,7 @@ export const socketMiddleware = (url: string, isPrivate: boolean, actions: TWebS
         let socket: WebSocket | null = null;
 
         return next => (action: AnyAction) => {
-            const token = isPrivate ? Storage.getLocalAccessToken()?.replace("Bearer", "").trim() : null;
+            const token: string = isPrivate ? Storage.getLocalAccessToken()?.replace("Bearer", "").trim() : null;
             if (isPrivate && !token) {
                 next(action);
                 return;
@@ -28,7 +29,9 @@ export const socketMiddleware = (url: string, isPrivate: boolean, actions: TWebS
 
             if (type === onInit) {
                 const params = token ? `?token=${token}` : "";
-                socket = new WebSocket(`${url}${params}`);
+                const wsUrl = `${url}${params}`;
+                socket = new WebSocket(wsUrl);
+                // console.log("WebSocket open", wsUrl);
             };
             
             if (socket) {
@@ -37,7 +40,7 @@ export const socketMiddleware = (url: string, isPrivate: boolean, actions: TWebS
                   dispatch({ type: onOpen });
                 };
 
-                socket.onerror = (event) => {
+                socket.onerror = (event: Event) => {
                   dispatch({ type: onError, error: event });
                 };
 
@@ -45,9 +48,9 @@ export const socketMiddleware = (url: string, isPrivate: boolean, actions: TWebS
                   dispatch({ type: onClose });
                 };
 
-                socket.onmessage = (event) => {
+                socket.onmessage = (event: MessageEvent) => {
                   const { data } = event;
-                  const orders = JSON.parse(data);
+                  const orders: TOrdersInfo = JSON.parse(data);
                   dispatch({ type: onMessage, orders: orders });
                 };
 

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from '../../services/types/hooks';
 import { Switch, Route } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { restoreUser } from "../../services/AuthService";
 import { getIngredients } from "../../services/DataService";
+import { wsConnectionPublicInit } from '../../services/actions/websocket';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import GuestRoute from '../GuestRoute/GuestRoute';
@@ -15,13 +16,14 @@ import { HomePage, OrdersFeedPage, IngredientPage, ProfileForm, ProfileOrders, O
 
 function App() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(restoreUser())
         dispatch(getIngredients());
+        dispatch(wsConnectionPublicInit());
     }, [dispatch]);
 
-    const loading: boolean = useSelector((store: any) => (
+    const loading: boolean = useAppSelector((store: any) => (
         (store.ingredients.loading ?? false) || 
         (store.order.loading ?? false) || 
         (store.account.loading ?? false) || 

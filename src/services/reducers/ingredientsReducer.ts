@@ -4,6 +4,7 @@ import { TIngredient } from '../../utils/types'
 
 type TIngredientsState = {
     items: TIngredient[],
+    selected: TIngredient | null| undefined,
     currentTab: string,
     loading: boolean,
     error: string | null,
@@ -11,6 +12,7 @@ type TIngredientsState = {
 
 const initialState: TIngredientsState = {
     items: [],
+    selected: null,
     currentTab: "bun",
     loading: false,
     error: null,
@@ -23,6 +25,8 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         case ACTION_TYPES.GET_INGREDIENTS_REQUEST:
             return {
                 ...state,
+                item: [],
+                selected: null,
                 loading: true,
                 error: null,
             };
@@ -38,8 +42,15 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
             return {
                 ...state,
                 items: [],
+                selected: null,
                 loading: false,
                 error: action.error,
+            };
+
+        case ACTION_TYPES.SET_CURRENT_INGREDIENT:
+            return {
+                ...state,
+                selected: action.item,
             };
 
         case ACTION_TYPES.SET_CURRENT_TAB:
