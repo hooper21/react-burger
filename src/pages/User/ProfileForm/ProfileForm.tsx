@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { TUser } from "../../../utils/types";
+import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { updateUserInfo, setUserInfo } from "../../../services/AuthService";
 
@@ -11,9 +12,9 @@ import styles from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   
-    const { user } = useAppSelector((store: any) => store.account);
+    const { user } = useAppSelector((store: TRootStore) => store.account);
 
-    const [ values, setValues ] = useState((user?.user) ? { name: user.user.name, email: user.user.email, password: "" } : { name: "", email: "", password: ""})
+    const [ values, setValues ] = useState((user) ? { name: user.name, email: user.email, password: "" } : { name: "", email: "", password: ""})
     const [ changed, setChanged ] = useState(false);
 
     const resetValues = (user: TUser) => {
@@ -24,7 +25,9 @@ const ProfileForm = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(updateUserInfo());
-        resetValues(user.user);
+        if (user) {
+            resetValues(user);
+        };
     }, [dispatch, user]);
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +37,16 @@ const ProfileForm = () => {
 
     const onSubmit = () => {
         dispatch(setUserInfo(values.name, values.email, values.password));
-        resetValues(user);
+        if (user) {
+            resetValues(user);
+        };
         setChanged(false);
     };
 
     const onReset = () => {
-        resetValues(user);
+        if (user) {
+            resetValues(user);
+        };
     };
 
     return (

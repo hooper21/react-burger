@@ -1,4 +1,5 @@
 import { STORAGE_USER_KEY } from '../config';
+import { TUser, TUserAccount } from "../utils/types";
 
 class StorageService {
 
@@ -19,7 +20,7 @@ class StorageService {
         return (data) ? JSON.parse(data) : null;
     }
 
-    setUser(user: any) {
+    setUser(user: TUserAccount) {
         this.set(STORAGE_USER_KEY, JSON.stringify(user));
     }
 

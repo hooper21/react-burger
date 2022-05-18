@@ -5,11 +5,12 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from 'react-dnd';
 
 import { TBurgerElement } from "../../../utils/types";
+import { TIngredient } from "../../../utils/types";
 
 import styles from './BurgerElementCard.module.css';
 
 type TBurgerElementCard = {
-    item: TBurgerElement;
+    item: TIngredient;
     index?: string;
     state?: "top" | "bottom" | undefined;
     onRemove?: () => void;

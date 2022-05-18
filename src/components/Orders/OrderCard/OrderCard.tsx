@@ -1,6 +1,7 @@
 import React, { FC, useMemo } from "react";
 import { useAppSelector } from '../../../services/types/hooks';
 import { TIngredient, TOrderInfo, getOrderStatusName, getDateToTitle } from '../../../utils/types';
+import { TRootStore } from "../../../services/reducers/rootReducer";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./OrderCard.module.css";
 
@@ -11,7 +12,7 @@ type TOrderProps = {
 
 const OrderItem: FC<TOrderProps> = ({ item, onClick }: TOrderProps) => {
 
-    const ingredients = useAppSelector((store: any) => store.ingredients);
+    const ingredients = useAppSelector((store: TRootStore) => store.ingredients);
 
     const ordersImages = useMemo(() => {
         if (ingredients) {

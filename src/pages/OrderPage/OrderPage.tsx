@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from "../../services/types/hooks";
 import { useParams, useRouteMatch } from "react-router-dom";
 
 import { TOrderInfo } from "../../utils/types"
+import { TRootStore } from "../../services/reducers/rootReducer";
 
 import OrderDetails from '../../components/Orders/OrderDetails/OrderDetails';
 import { NotFound } from  '..';
@@ -14,7 +15,7 @@ type TParams = {
 
 const OrderPage: FC = () => {
 
-    const { orders, connected, loading } = useAppSelector((store: any) => store.statistic );
+    const { orders, connected, loading } = useAppSelector((store: TRootStore) => store.statistic );
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (!connected) {

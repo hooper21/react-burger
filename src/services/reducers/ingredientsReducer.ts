@@ -1,6 +1,5 @@
 import { ACTION_TYPES } from "../action-types";
 import { TIngredientsActions, TIngredientsState, initialState } from "../actions/ingredients";
-import { TIngredient } from '../../utils/types';
 
 export const ingredientsReducer = (state = initialState, action: TIngredientsActions): TIngredientsState => {
     
@@ -9,7 +8,6 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         case ACTION_TYPES.GET_INGREDIENTS_REQUEST:
             return {
                 ...state,
-                items: [],
                 selected: null,
                 loading: true,
                 error: null,
@@ -25,7 +23,6 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
         case ACTION_TYPES.GET_INGREDIENTS_FAILED:
             return {
                 ...state,
-                items: [],
                 selected: null,
                 loading: false,
                 error: action.error,

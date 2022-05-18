@@ -2,6 +2,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { Link, useHistory } from "react-router-dom";
 import { registerUser } from "../../../services/AuthService";
+import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { USER_TEST_NAME, USER_TEST_EMAIL, USER_TEST_PASSWORD } from '../../../config';
 
@@ -14,7 +15,7 @@ const RegistrationPage = () => {
     const [ values, setValues ] = useState({ name: USER_TEST_NAME, email: USER_TEST_EMAIL, password: USER_TEST_PASSWORD })
 
     const history = useHistory();
-    const { error } = useAppSelector((store: any) => store.account);
+    const { error } = useAppSelector((store: TRootStore) => store.account);
     const hasError = (error) ? true : false;
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });
@@ -24,8 +25,6 @@ const RegistrationPage = () => {
         dispatch(registerUser(values.name, values.email, values.password, history))
     }
 
-    console.info("error", error);
-    
     return (
         <div className={styles.container}>
             <h1 className='text text_type_main-medium mb-6'>Регистрация</h1>

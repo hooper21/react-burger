@@ -185,11 +185,11 @@ export type TAccountActions =
 export type TAccountState = {
     user: TUser | null,
     loading: boolean,
-    error: string | null,
+    error: string | undefined,
 };
 
 export const initialState: TAccountState = {
     user: null,
     loading: false,
-    error: null,
+    error: undefined,
 };

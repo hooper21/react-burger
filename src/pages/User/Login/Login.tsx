@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { Link, useHistory } from "react-router-dom";
 
 import { loginUser } from "../../../services/AuthService";
+import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { USER_TEST_EMAIL, USER_TEST_PASSWORD } from '../../../config';
 
@@ -15,7 +16,7 @@ const Login = () => {
     const [ values, setValues ] = useState({ email: USER_TEST_EMAIL, password: USER_TEST_PASSWORD })
 
     const history = useHistory();
-    const { error } = useAppSelector((store: any) => store.account);
+    const { error } = useAppSelector((store: TRootStore) => store.account);
     const hasError = (error) ? true : false;
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });

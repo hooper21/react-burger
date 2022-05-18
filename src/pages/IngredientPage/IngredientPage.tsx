@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 import { TIngredient } from "../../utils/types"
+import { TRootStore } from "../../services/reducers/rootReducer";
 
 import IngredientDetails from '../../components/Ingredients/IngredientDetails/IngredientDetails';
 import { NotFound } from  '..';
@@ -14,7 +15,7 @@ type TParams = {
 const IngredientPage = () => {
 
     const { id } = useParams<TParams>();
-    const { items, loading } = useSelector((store: any) => store.ingredients);
+    const { items, loading } = useSelector((store: TRootStore) => store.ingredients);
 
     if (loading) {
         return null;
