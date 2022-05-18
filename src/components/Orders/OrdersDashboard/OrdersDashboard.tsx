@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
 import { TOrderInfo } from '../../../utils/types';
-import { TWebSocketState } from '../../../services/reducers/wsPrivateReducer';
+import { TWebSocketState } from '../../../services/actions/websocket';
 
 import styles from './OrdersDashboard.module.css';
 

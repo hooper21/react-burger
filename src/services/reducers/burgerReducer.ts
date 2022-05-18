@@ -1,16 +1,6 @@
 import { ACTION_TYPES } from "../action-types";
-import { TBurgerActions } from "../actions/burger";
-import { TBurgerElements } from '../../utils/types'
-
-export type TBurgerState = {
-    bun: string | null | undefined,
-    items: TBurgerElements,
-};
-
-const initialState: TBurgerState = {
-    bun: null,
-    items: {},
-};
+import { TBurgerActions, TBurgerState, initialState } from "../actions/burger";
+import { TBurgerElements } from '../../utils/types';
 
 export const burgerReducer = (state = initialState, action: TBurgerActions): TBurgerState => {
 

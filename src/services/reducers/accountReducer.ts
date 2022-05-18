@@ -1,19 +1,6 @@
 import { ACTION_TYPES } from "../action-types";
-import { TAccountActions } from "../actions/account";
+import { TAccountActions, TAccountState, initialState } from "../actions/account";
 import { TUser } from '../../utils/types'
-
-type TAccountState = {
-    user: TUser | null,
-    loading: boolean,
-    error: string | null,
-};
-
-
-const initialState: TAccountState = {
-    user: null,
-    loading: false,
-    error: null,
-};
 
 export const accountReducer = (state = initialState, action: TAccountActions) => {
 

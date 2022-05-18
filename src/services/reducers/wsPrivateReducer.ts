@@ -1,30 +1,8 @@
 import { ACTION_TYPES } from "../action-types";
+import { TWebSocketActions, TWebSocketState, initialState  } from '../actions/websocket'
 import { TOrderInfo } from '../../utils/types'
-import { TWebSocketActions } from '../actions/websocket'
 
-export type TWebSocketState = {
-    connected: boolean,
-    orders: ReadonlyArray<TOrderInfo>;
-    selected: TOrderInfo | null | undefined,
-    total: number;
-    totalToday: number;
-    error?: Event,
-    loading: boolean,
-    popup: boolean,
-};
-
-export const initialState: TWebSocketState = {
-    connected: false,
-    error: undefined,
-    orders: [],
-    selected: undefined,
-    total: 0,
-    totalToday: 0,
-    loading: false,
-    popup: false,
-};
-
-export const wsPrivateReducer = (state = initialState, action: TWebSocketActions) => {
+export const wsPrivateReducer = (state = initialState, action: TWebSocketActions): TWebSocketState => {
     
     switch (action.type) {
       

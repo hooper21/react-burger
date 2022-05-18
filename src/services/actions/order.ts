@@ -39,3 +39,16 @@ export type TOrderActions =
     | IGetOrderSuccess
     | IGetOrderFailed
     | IHideOrderErrors;
+
+
+export type TOrderState = {
+    order: TOrder | null | undefined,
+    loading: boolean,
+    error: string | null,
+};
+
+export const initialState: TOrderState = {
+    order: null,
+    loading: false,
+    error: null,
+};

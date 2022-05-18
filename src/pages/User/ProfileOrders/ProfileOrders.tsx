@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
-import { TWebSocketState } from '../../../services/reducers/wsPrivateReducer';
-import { wsConnectionPrivateInit } from '../../../services/actions/websocket';
+import { TWebSocketState, wsConnectionPrivateInit } from '../../../services/actions/websocket';
 
 import ProfileNavigation from "../../../ui/ProfileNavigation/ProfileNavigation";
 import OrdersList from '../../../components/Orders/OrdersList/OrdersList';

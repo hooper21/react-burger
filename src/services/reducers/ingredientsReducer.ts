@@ -1,31 +1,15 @@
 import { ACTION_TYPES } from "../action-types";
-import { TIngredientsActions } from "../actions/ingredients";
-import { TIngredient } from '../../utils/types'
+import { TIngredientsActions, TIngredientsState, initialState } from "../actions/ingredients";
+import { TIngredient } from '../../utils/types';
 
-type TIngredientsState = {
-    items: TIngredient[],
-    selected: TIngredient | null| undefined,
-    currentTab: string,
-    loading: boolean,
-    error: string | null,
-};
-
-const initialState: TIngredientsState = {
-    items: [],
-    selected: null,
-    currentTab: "bun",
-    loading: false,
-    error: null,
-};
-
-export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions): TIngredientsState => {
     
     switch (action.type) {
     
         case ACTION_TYPES.GET_INGREDIENTS_REQUEST:
             return {
                 ...state,
-                item: [],
+                items: [],
                 selected: null,
                 loading: true,
                 error: null,

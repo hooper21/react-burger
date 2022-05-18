@@ -59,3 +59,20 @@ export type TIngredientsActions =
     | ISetCurrentIngredient
     | ISetCurrentTab
     | IHideIngredientsErrors;
+
+
+export type TIngredientsState = {
+    items: TIngredient[],
+    selected: TIngredient | null| undefined,
+    currentTab: string,
+    loading: boolean,
+    error: string | null,
+};
+
+export const initialState: TIngredientsState = {
+    items: [],
+    selected: null,
+    currentTab: "bun",
+    loading: false,
+    error: null,
+};

@@ -1,8 +1,7 @@
 import { ACTION_TYPES } from "../action-types";
-import { initialState } from './wsPrivateReducer';
-import { TWebSocketActions } from '../actions/websocket'
+import { TWebSocketActions, TWebSocketState, initialState  } from '../actions/websocket'
 
-export const wsPublicReducer = (state = initialState, action: TWebSocketActions) => {
+export const wsPublicReducer = (state = initialState, action: TWebSocketActions): TWebSocketState => {
     
     switch (action.type) {
       

@@ -101,3 +101,27 @@ export const OrdersUserActions: TWebSocketOrdersActions = {
     onMessage: ACTION_TYPES.WS_GET_USER_ORDERS,
 };
 export type TOrdersUserActions = typeof OrdersUserActions;
+
+
+
+export type TWebSocketState = {
+    connected: boolean,
+    orders: ReadonlyArray<TOrderInfo>;
+    selected: TOrderInfo | null | undefined,
+    total: number;
+    totalToday: number;
+    error?: Event,
+    loading: boolean,
+    popup: boolean,
+};
+
+export const initialState: TWebSocketState = {
+    connected: false,
+    error: undefined,
+    orders: [],
+    selected: undefined,
+    total: 0,
+    totalToday: 0,
+    loading: false,
+    popup: false,
+};

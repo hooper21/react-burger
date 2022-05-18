@@ -1,20 +1,7 @@
 import { ACTION_TYPES } from "../action-types";
-import { TOrder } from '../../utils/types'
+import { TOrderActions, TOrderState, initialState } from "../actions/order";
 
-
-type TOrderState = {
-    order: TOrder | null,
-    loading: boolean,
-    error: string | null,
-};
-
-const initialState: TOrderState = {
-    order: null,
-    loading: false,
-    error: null,
-};
-
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer = (state = initialState, action: TOrderActions): TOrderState => {
 
     switch (action.type) {
 

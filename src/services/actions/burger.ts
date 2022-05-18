@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { ACTION_TYPES } from "../action-types";
-
+import { TBurgerElements } from '../../utils/types'
 
 export interface IClearBurger {
     readonly type: typeof ACTION_TYPES.BURGER_CLEAR;
@@ -66,3 +66,14 @@ export type TBurgerActions =
   | IAddBurgerIngredient
   | IRemoveBurgerIngredient
   | IChangeBurgerIngredient;
+
+
+export type TBurgerState = {
+    bun: string | null | undefined,
+    items: TBurgerElements,
+};
+
+export const initialState: TBurgerState = {
+    bun: null,
+    items: {},
+};

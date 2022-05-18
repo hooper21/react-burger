@@ -180,3 +180,16 @@ export type TAccountActions =
     | IResetPasswordRequest
     | IResetPasswordSuccess
     | IResetPasswordFailed;
+
+
+export type TAccountState = {
+    user: TUser | null,
+    loading: boolean,
+    error: string | null,
+};
+
+export const initialState: TAccountState = {
+    user: null,
+    loading: false,
+    error: null,
+};
