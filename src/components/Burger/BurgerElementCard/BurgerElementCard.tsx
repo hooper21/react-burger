@@ -1,15 +1,16 @@
 import { useRef, FC } from "react";
-import { useDispatch } from "react-redux";
-import { changeBurgerIngredients } from "../../../services/actions/order";
+import { useAppDispatch } from '../../../services/types/hooks';
+import { changeBurgerIngredients } from "../../../services/actions/burger";
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
 
 import { TBurgerElement } from "../../../utils/types";
+import { TIngredient } from "../../../utils/types";
 
 import styles from './BurgerElementCard.module.css';
 
 type TBurgerElementCard = {
-    item: TBurgerElement;
+    item: TIngredient;
     index?: string;
     state?: "top" | "bottom" | undefined;
     onRemove?: () => void;
@@ -17,7 +18,7 @@ type TBurgerElementCard = {
 
 const BurgerElementCard: FC<TBurgerElementCard> = ({ item, index, state, onRemove }: TBurgerElementCard) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ref = useRef(null);
     const [{ isDragging }, dragRef] = useDrag({
         type: "burder-item",

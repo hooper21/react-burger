@@ -1,29 +1,37 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from '../../services/types/hooks';
+import { Switch, Route } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { restoreUser } from "../../services/AuthService";
 import { getIngredients } from "../../services/DataService";
+import { wsConnectionPublicInit } from '../../services/actions/websocket';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import GuestRoute from '../GuestRoute/GuestRoute';
+import { TRootStore } from "../../services/reducers/rootReducer";
 
 import { AppHeader, Spinner } from '../../ui';
-import { HomePage, IngredientPage, ProfileForm, ProfileOrders, Login, Register, NotFound } from  '../../pages';
-import PasswordForgot from  '../../pages/User/PasswordForgot/PasswordForgot';
-import PasswordReset from  '../../pages/User/PasswordReset/PasswordReset';
+import { HomePage, OrdersFeedPage, IngredientPage, ProfileForm, ProfileOrders, OrderPage, Login, Register, PasswordForgot, PasswordReset, NotFound } from  '../../pages';
 
 function App() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(restoreUser())
         dispatch(getIngredients());
+        dispatch(wsConnectionPublicInit());
     }, [dispatch]);
 
-    const loading: boolean = useSelector((store: any) => ((store.ingredients.loading ?? false) || (store.order.loading ?? false) || (store.account.loading ?? false)));
+    const loading: boolean = useAppSelector((store: TRootStore) => (
+        (store.ingredients.loading ?? false) || 
+        (store.order.loading ?? false) || 
+        (store.account.loading ?? false) || 
+        (store.statistic.loading ?? false) ||
+        (store.orders.loading ?? false) ||
+        false
+    ));
 
     return (
         <>
@@ -40,6 +48,15 @@ function App() {
                     </Route>
                     <Route path="/ingredients/:id" exact={true}>
                         <IngredientPage />
+                    </Route>
+                    <Route path="/feed/:id" exact={true}>
+                        <OrderPage />
+                    </Route>
+                    <Route path="/feed">
+                        <OrdersFeedPage />
+                    </Route>
+                    <Route path="/profile/orders/:id" exact={true}>
+                        <OrderPage />
                     </Route>
                     <Route path="/profile/orders">
                         <ProfileOrders />

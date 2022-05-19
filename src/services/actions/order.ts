@@ -1,60 +1,54 @@
-import { nanoid } from '@reduxjs/toolkit';
+import { ACTION_TYPES } from "../action-types";
 import { TOrder } from "../../utils/types";
-import { ACTION_TYPES } from "./types";
 
-export const getOrderRequest = () => ({
+export interface IGetOrderRequest {
+    readonly type: typeof ACTION_TYPES.GET_ORDER_REQUEST;
+};
+export const getOrderRequest = (): IGetOrderRequest => ({
     type: ACTION_TYPES.GET_ORDER_REQUEST,
 });
 
-export const getOrderSuccess = (order: TOrder | null | undefined) => ({
+export interface IGetOrderSuccess {
+    readonly type: typeof ACTION_TYPES.GET_ORDER_SUCCESS;
+    readonly order: TOrder | null | undefined;
+};
+export const getOrderSuccess = (order: TOrder | null | undefined): IGetOrderSuccess => ({
     type: ACTION_TYPES.GET_ORDER_SUCCESS,
     order: order,
 });
 
-export const getOrderFailed = (error: string) => ({
+export interface IGetOrderFailed {
+    readonly type: typeof ACTION_TYPES.GET_ORDER_FAILED;
+    readonly error: string;
+};
+export const getOrderFailed = (error: string): IGetOrderFailed => ({
     type: ACTION_TYPES.GET_ORDER_FAILED,
     error: error
 });
 
-export const hideOrderErrors = () => ({
+export interface IHideOrderErrors {
+    readonly type: typeof ACTION_TYPES.CLEAR_ERRORS;
+};
+export const hideOrderErrors = (): IHideOrderErrors => ({
     type: ACTION_TYPES.CLEAR_ERRORS,
 });
 
-/*
-export const setBurgerIngredients = (items) => ({
-    type: ACTION_TYPES.BURGER_SET_INGREDIENTS,
-    items: items,
-});
-*/
 
-export const clearBurger = () => ({
-    type: ACTION_TYPES.BURGER_CLEAR,
-});
+export type TOrderActions =
+    | IGetOrderRequest
+    | IGetOrderSuccess
+    | IGetOrderFailed
+    | IHideOrderErrors;
 
-export const setBurgerBun = (id: string | null | undefined) => ({
-    type: ACTION_TYPES.BURGER_SET_BUN,
-    id: id
-});
 
-export const removeBurgerBun= (id: string) => ({
-    type: ACTION_TYPES.BURGER_REMOVE_BUN,
-    id: id
-});
+export type TOrderState = {
+    order: TOrder | null | undefined,
+    loading: boolean,
+    error: string | null,
+};
 
-export const addBurgerIngredient = (id: string) => ({
-    type: ACTION_TYPES.BURGER_ADD_INGREDIENT,
-    id: id,
-    uuid: nanoid(),
-});
-
-export const removeBurgerIngredient = (uuid: string) => ({
-    type: ACTION_TYPES.BURGER_REMOVE_INGREDIENT,
-    uuid: uuid,
-});
-
-export const changeBurgerIngredients = ({selected, target}: any) => ({
-    type: ACTION_TYPES.BURGER_REPLACE_INGREDIENTS,
-    selected: selected,
-    target: target,
-});
-
+export const initialState: TOrderState = {
+    order: null,
+    loading: false,
+    error: null,
+};

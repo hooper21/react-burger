@@ -1,7 +1,8 @@
-import { initialState } from "./rootReducer";
-import { ACTION_TYPES } from "../actions/types";
+import { ACTION_TYPES } from "../action-types";
+import { TAccountActions, TAccountState, initialState } from "../actions/account";
+import { TUser } from '../../utils/types';
 
-const accountReducer = (state = initialState.account, action) => {
+export const accountReducer = (state = initialState, action: TAccountActions): TAccountState => {
 
     switch (action.type) {
         
@@ -9,7 +10,7 @@ const accountReducer = (state = initialState.account, action) => {
             return {
                 ...state,
                 loading: true,
-                error: null,
+                error: undefined,
             };
         case ACTION_TYPES.USER_REQUEST_FAILED:
             return {
@@ -22,9 +23,9 @@ const accountReducer = (state = initialState.account, action) => {
         case ACTION_TYPES.LOGIN_SUCCESS:
             return {
                 ...state,
-                user: (action.user) ? { ...state.user, ...action.user} : null,
+                user: (action.user) ? { ...state.user, ...action.user.user} : null,
                 loading: false,
-                error: null,
+                error: undefined,
             };
             
         case ACTION_TYPES.LOGOUT_USER:
@@ -32,7 +33,7 @@ const accountReducer = (state = initialState.account, action) => {
                 ...state,
                 user: null,
                 loading: false,
-                error: null,
+                error: undefined,
             };
         
         case ACTION_TYPES.REGISTER_SUCCESS:
@@ -40,35 +41,33 @@ const accountReducer = (state = initialState.account, action) => {
                 ...state,
                 user: (action.user) ? { ...state.user, ...action.user} : null,
                 loading: false,
-                error: null,
+                error: undefined,
             };
         
         case ACTION_TYPES.RESET_PASSWORD_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                error: null,
+                error: undefined,
             };
         
         case ACTION_TYPES.GET_USER_INFO_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                error: null,
+                error: undefined,
             };
         
         case ACTION_TYPES.SET_USER_INFO_SUCCESS:
             return {
                 user: (action.user) ? { ...state.user, ...action.user} : null,
                 loading: false,
-                error: null,
+                error: undefined,
             };
-
-            
 
         default:
             return state;
-    };
-};
 
-export default accountReducer;
+    };
+
+};

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from '../../../services/types/hooks';
 import { useDrag } from 'react-dnd';
 import { setCurrentIngredient } from "../../../services/actions/ingredients";
 import { setLocation } from "../../../services/DataService";
@@ -7,7 +7,7 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 
 import { TIngredient } from '../../../utils/types';
 
-import styles from './BurgerIngredientCard.module.css';
+import styles from './IngredientCard.module.css';
 
 
 type TBurgerIngredientCard ={
@@ -15,9 +15,9 @@ type TBurgerIngredientCard ={
     count: number;
 };
 
-const BurgerIngredientCard = ({ item, count }: TBurgerIngredientCard) => {
+const IngredientCard = ({ item, count }: TBurgerIngredientCard) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [, dragRef] = useDrag({
         type: "ingredient",
@@ -53,4 +53,4 @@ const BurgerIngredientCard = ({ item, count }: TBurgerIngredientCard) => {
 
 };
 
-export default BurgerIngredientCard;
+export default IngredientCard;

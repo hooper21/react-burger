@@ -11,27 +11,37 @@ import {
     resetPasswordRequest, resetPasswordSuccess, resetPasswordFailed,
 } from "./actions/account";
 
+import { AppDispatch } from './types';
+import { TUserAccount } from '../utils/types';
+import { TResponceAccount } from '../utils/responses';
+
+import { wsConnectionPrivateInit, wsConnectionClose } from './actions/websocket';
+
 export const currentUser = () => Storage.getUser();
 
 export const restoreUser = () => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         const user = currentUser();
         dispatch(loginSuccess(user));
+        if (user) {
+            dispatch(wsConnectionPrivateInit());
+        };
     };
 };
 
 export const loginUser = (email: string, password: string, history: any) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(loginRequest());
         http
-            .post("/auth/login", { email, password })
+            .post<any, TResponceAccount>("/auth/login", { email, password })
             .then(
-                (response: any) => {
-                    if (response?.success) {
-                        delete(response.success);
-                        const userData = { ...response };
+                (response: TResponceAccount) => {
+                    if (response.success) {
+                        //delete(response.success);
+                        const userData: TUserAccount = { ...response };
                         Storage.setUser(userData);
                         dispatch(loginSuccess(userData));
+                        dispatch(wsConnectionPrivateInit());
                     }
                     else 
                     {
@@ -47,9 +57,10 @@ export const loginUser = (email: string, password: string, history: any) => {
 };
 
 export const logoutUser = (history: any) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         Storage.removeUser();
         dispatch(loginSuccess(null));
+        dispatch(wsConnectionClose());
         history.replace({ pathname: '/' });
     }
 };
@@ -71,7 +82,7 @@ export const refreshTocken = () => {
 };
 
 export const registerUser = (name: string, email: string, password: string, history: any) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(registerRequest());
         http
             .post("/auth/register", { name, email, password })
@@ -102,7 +113,7 @@ export const registerUser = (name: string, email: string, password: string, hist
 };
 
 export const forgotPassword = (email: string, history: any) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(forgotPasswordRequest());
         http
             .post("/password-reset", { email })
@@ -126,7 +137,7 @@ export const forgotPassword = (email: string, history: any) => {
 };
 
 export const resetPassword = (token: string, password: string, history: any) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(resetPasswordRequest());
         http
             .post("/password-reset/reset", { token, password })
@@ -150,7 +161,7 @@ export const resetPassword = (token: string, password: string, history: any) => 
 };
 
 export const updateUserInfo = () => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(getUserInfoRequest());
         http
             .get("/auth/user")
@@ -177,7 +188,7 @@ export const updateUserInfo = () => {
 };
 
 export const setUserInfo = (name: string, email: string, password: string) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(setUserInfoRequest());
         http
             .patch("/auth/user", { name, email, password })

@@ -1,0 +1,45 @@
+import { FC, useEffect } from 'react';
+import { wsConnectionPublicInit, wsConnectionPrivateInit } from '../../services/actions/websocket';
+import { useAppSelector, useAppDispatch } from "../../services/types/hooks";
+import { useParams, useRouteMatch } from "react-router-dom";
+
+import { TOrderInfo } from "../../utils/types"
+import { TRootStore } from "../../services/reducers/rootReducer";
+
+import OrderDetails from '../../components/Orders/OrderDetails/OrderDetails';
+import { NotFound } from  '..';
+
+type TParams = {
+    [id: string]: string;
+};
+
+const OrderPage: FC = () => {
+
+    const { orders, connected, loading } = useAppSelector((store: TRootStore) => store.statistic );
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        if (!connected) {
+            dispatch(wsConnectionPublicInit());
+        };
+    }, [ dispatch, connected ]);
+
+    const { id } = useParams<TParams>();
+
+    if (!connected || loading) {
+        return null;
+    };
+    
+    const order = (orders) ? orders.find((item: TOrderInfo) => item._id === id) : null;
+
+    return (
+        (order) ? (
+            <div>
+                <OrderDetails item={order} />
+            </div>
+        ) : (
+            <NotFound />
+        )
+    );
+};
+
+export default OrderPage;

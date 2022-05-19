@@ -11,4 +11,8 @@ import ProfileForm from './User/ProfileForm/ProfileForm';
 
 import NotFound from './NotFound/NotFound';
 
-export { HomePage, IngredientPage, Login, Register, PasswordForgot, PasswordReset, ProfileOrders, ProfileForm, NotFound };
+import OrdersFeedPage from './OrdersFeedPage/OrdersFeedPage';
+import OrderPage from './OrderPage/OrderPage';
+
+
+export { HomePage, OrdersFeedPage, OrderPage, IngredientPage, Login, Register, PasswordForgot, PasswordReset, ProfileOrders, ProfileForm, NotFound };

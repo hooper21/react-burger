@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, FormEvent  } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { Link, useHistory } from 'react-router-dom';
 import { forgotPassword } from "../../../services/AuthService";
+import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { USER_TEST_EMAIL } from '../../../config';
 
@@ -10,11 +11,11 @@ import styles from './PasswordForgot.module.css';
 
 const ForgotPasswordPage = () => {
   
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [ values, setValues ] = useState({ email: USER_TEST_EMAIL })
 
     const history = useHistory();
-    const { error } = useSelector((store: any) => store.account);
+    const { error } = useAppSelector((store: TRootStore) => store.account);
     const hasError = (error) ? true : false;
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });

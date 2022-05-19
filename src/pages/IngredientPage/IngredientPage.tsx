@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 import { TIngredient } from "../../utils/types"
+import { TRootStore } from "../../services/reducers/rootReducer";
 
 import IngredientDetails from '../../components/Ingredients/IngredientDetails/IngredientDetails';
 import { NotFound } from  '..';
@@ -12,14 +13,20 @@ type TParams = {
 };
 
 const IngredientPage = () => {
-    const { items } = useSelector((store: any) => store.ingredients);
+
     const { id } = useParams<TParams>();
-    const currentIngredient = (items) ? items.find((item: TIngredient) => item._id === id) : null;
+    const { items, loading } = useSelector((store: TRootStore) => store.ingredients);
+
+    if (loading) {
+        return null;
+    };
+
+    const selected = (items) ? items.find((item: TIngredient) => item._id === id) : null;
 
     return (
-        (currentIngredient) ? (
+        (selected) ? (
             <div className="pt-30">
-                <IngredientDetails item={currentIngredient} />
+                <IngredientDetails item={selected} />
             </div>
         ) : (
             <NotFound />

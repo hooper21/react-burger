@@ -16,7 +16,7 @@ const AppHeader = () => {
                     <NavLink href="/" title="Конструктор" className={styles.primary}>
                         <BurgerIcon type="primary" />
                     </NavLink>
-                    <NavLink href="/profile/orders" title="Лента заказов" className={styles.secondary}>
+                    <NavLink href="/feed" title="Лента заказов" className={styles.secondary}>
                         <ListIcon type="secondary" />
                     </NavLink>
                 </nav>

@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 import Storage from "./StorageService";
 import { API_URL } from '../config';
 
-const instance = axios.create({
+const instance: AxiosInstance = axios.create({
     baseURL: API_URL,
     headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     
-    (response: any) => {
+    (response: AxiosResponse) => {
         const contentType = response?.headers["content-type"] ?? "";
         if (contentType.indexOf("application/json") !== -1) {
             return response?.data ?? response;
@@ -46,7 +46,7 @@ instance.interceptors.response.use(
                         const res: any = await instance.post("/auth/token", {
                             token: Storage.getLocalRefreshToken(),
                         });
-                        const { accessToken} = res;
+                        const { accessToken } = res;
                         Storage.setLocalAccessToken(accessToken);
                         return instance(originalConfig);
                     } catch (_error) {

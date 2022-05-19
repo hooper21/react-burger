@@ -1,15 +1,30 @@
+import { FC, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
+import { TRootStore } from "../../../services/reducers/rootReducer";
+import { TWebSocketState, wsConnectionPrivateInit } from '../../../services/actions/websocket';
 
 import ProfileNavigation from "../../../ui/ProfileNavigation/ProfileNavigation";
-
+import OrdersList from '../../../components/Orders/OrdersList/OrdersList';
 import styles from './ProfileOrders.module.css';
 
-const ProfileOrders = () => {
+const ProfileOrders: FC = () => {
+
+    const orders: TWebSocketState = useAppSelector((store: TRootStore) => store.orders);
+
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        if (!orders.connected) {
+            dispatch(wsConnectionPrivateInit());
+        };
+    }, [ dispatch, orders.connected ]);
+
+    if (!orders.orders) 
+        return null;
+
     return (
         <div className={styles.container + " pr-5 pl-5"}>
             <ProfileNavigation />
-            <div className={styles.content}>
-                <p className={`${styles.text} text text_type_main-large text_color_inactive`}>История Ваших заказов</p>
-            </div>
+            <OrdersList />
         </div>
     );
 };

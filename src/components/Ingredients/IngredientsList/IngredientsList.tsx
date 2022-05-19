@@ -1,5 +1,5 @@
 import { Fragment,  useRef } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { setLocation } from "../../../services/DataService";
 
 import { setCurrentTab, setCurrentIngredient, hideIngredientsErrors } from "../../../services/actions/ingredients";
@@ -7,20 +7,20 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
 import Modal from '../../../ui/Modal/Modal';
-import BurgerIngredientCard from "../BurgerIngredientCard/BurgerIngredientCard";
+import IngredientCard from "../IngredientCard/IngredientCard";
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 import { TIngredient, TKeyedStrings, TKeyedValues } from "../../../utils/types";
+import { TRootStore } from "../../../services/reducers/rootReducer";
 
-import styles from './BurgerIngredients.module.css';
+import styles from './IngredientsList.module.css';
 
-const BurgerIngredients = () => {
+const IngredientsList = () => {
 
-    const ingredients = useSelector((store: any) => store.ingredients);
-    const { error, currentTab } = ingredients;
-    const burger = useSelector((store: any) => store.burger);
-    const currentIngredient = useSelector((store: any) => store.currentIngredient);
-    const dispatch = useDispatch();
+    const ingredients = useAppSelector((store: TRootStore) => store.ingredients);
+    const { error, currentTab, selected } = ingredients;
+    const burger = useAppSelector((store: TRootStore) => store.burger);
+    const dispatch = useAppDispatch();
 
     const tabs: TKeyedStrings = {
         "bun": "Булки",
@@ -111,7 +111,7 @@ const BurgerIngredients = () => {
                                         return (item.type === type) ?
                                                 (
                                                     <li key={item._id} className={`${styles.card} mt-6 mb-2 ml-4 mr-2`}>
-                                                        <BurgerIngredientCard item={item} count={count} />
+                                                        <IngredientCard item={item} count={count} />
                                                     </li>
                                                 ) : null;
                                     })) : null
@@ -123,9 +123,9 @@ const BurgerIngredients = () => {
             </div>
     
             {
-                ( currentIngredient ) ? (
+                ( selected ) ? (
                     <Modal onClose={onClose} title="Детали ингредиента">
-                        <IngredientDetails item={currentIngredient} />
+                        <IngredientDetails item={selected} />
                     </Modal>
                 ) : null
             }
@@ -134,4 +134,4 @@ const BurgerIngredients = () => {
     )
 }
 
-export default BurgerIngredients;
+export default IngredientsList;

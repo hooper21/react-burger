@@ -1,10 +1,13 @@
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
-import { getOrderSuccess, clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient, hideOrderErrors } from "../../../services/actions/order";
+import { getOrderSuccess, hideOrderErrors } from "../../../services/actions/order";
+import { clearBurger, setBurgerBun, addBurgerIngredient, removeBurgerIngredient } from "../../../services/actions/burger";
 import { getOrderNumber } from "../../../services/DataService";
 
+import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
+
 import { TIngredient } from "../../../utils/types";
+import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -15,12 +18,12 @@ import Modal from "../../../ui/Modal/Modal";
 import styles from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
-    const burger = useSelector((store: any) => store.burger);
-    const order = useSelector((store: any) => store.order);
-    const ingredients = useSelector((store: any) => store.ingredients.items);
-    const { user } = useSelector((store: any) => store.account);
+    const burger = useAppSelector((store: TRootStore) => store.burger);
+    const order = useAppSelector((store: TRootStore) => store.order);
+    const ingredients = useAppSelector((store: TRootStore) => store.ingredients.items);
+    const { user } = useAppSelector((store: TRootStore) => store.account);
     const history = useHistory();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [, dropIngredientsRef] = useDrop({
         accept: "ingredient",
@@ -51,7 +54,7 @@ const BurgerConstructor = () => {
     };
 
     const onOrderOpen = () => {
-        dispatch(getOrderNumber([burger.bun, ...Object.keys(burger.items).map((uuid) => burger.items[uuid])]));
+        dispatch(getOrderNumber([burger.bun ?? "", ...Object.keys(burger.items).map((uuid) => burger.items[uuid])]));
     };
 
     const onClickLogin = () => {
@@ -64,9 +67,9 @@ const BurgerConstructor = () => {
     };
     
     const findIngredient = (id: string) => ((id) ? ingredients.find((item: TIngredient) => item._id === id) : null);
-    const bunItem = findIngredient(burger.bun);
+    const bunItem = findIngredient(burger.bun ?? "");
 
-    const burgerCost = ((bunItem?.price ?? 0) * 2) + Object.keys(burger.items).reduce((total, uuid) => total + findIngredient(burger.items[uuid])?.price, 0);
+    const burgerCost = ((bunItem?.price ?? 0) * 2) + Object.keys(burger.items).reduce((total, id) => total + (findIngredient(burger.items[id])?.price ?? 0), 0);
 
     return (
         <section ref={dropIngredientsRef} className={`${styles.container} mt-25`} id="burger-constructor">
@@ -85,8 +88,12 @@ const BurgerConstructor = () => {
                             Соберите свой Steller Burger
                         </p>
                     ) : (
-                        Object.keys(burger.items).map((uuid) => {
-                            const item = findIngredient(burger.items[uuid]);
+                        Object.keys(burger.items).map((id) => {
+                            const uuid = burger.items[id];
+                            const item = findIngredient(uuid);
+                            if (!item) {
+                                return null;
+                            };
                             return (
                                 <BurgerElementCard key={uuid} index={uuid} item={item} onRemove={() => dispatch(removeBurgerIngredient(uuid))} />
                             )

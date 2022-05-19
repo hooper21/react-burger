@@ -1,12 +1,13 @@
-import BurgerIngredients from '../../components/Ingredients/BurgerIngredients/BurgerIngredients';
+import { FC } from 'react';
+import IngredientsList from '../../components/Ingredients/IngredientsList/IngredientsList';
 import BurgerConstructor from '../../components/Burger/BurgerConstructor/BurgerConstructor';
 
 import styles from './HomePage.module.css';
 
-function HomePage() {
+const HomePage: FC = () => {
     return (
         <main className={styles.main}>
-            <BurgerIngredients />
+            <IngredientsList />
             <BurgerConstructor />
         </main>
     );
