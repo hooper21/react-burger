@@ -1,9 +1,8 @@
 import { Fragment } from "react";
-import { useSelector } from 'react-redux';
-import { TRootStore } from "../../services/reducers/rootReducer";
+import { useAppSelector } from '../../services/types/hooks';
 
 const GuestContent = ({ children }: any) => {
-    const { user } = useSelector((store: TRootStore) => store.account);
+    const { user } = useAppSelector((store ) => store.account);
     if (user) {
         return null;
     };

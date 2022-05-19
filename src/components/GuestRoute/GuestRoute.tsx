@@ -1,10 +1,9 @@
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/types/hooks';
 import { GUEST_ROUTES } from "../../config";
-import { TRootStore } from "../../services/reducers/rootReducer";
 
 function GuestRoute({ children, ...props }: RouteProps) {
-    const { user } = useSelector((store: TRootStore) => store.account);
+    const { user } = useAppSelector((store) => store.account);
     const getReturnTo = (location: any) => {
         const returnTo = location.state?.returnTo || location;
         if ( GUEST_ROUTES && GUEST_ROUTES.includes(returnTo.pathname) ) {

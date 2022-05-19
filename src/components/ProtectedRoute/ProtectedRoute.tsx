@@ -1,10 +1,9 @@
 import { FC } from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { TRootStore } from "../../services/reducers/rootReducer";
+import { useAppSelector } from '../../services/types/hooks';
 
 const ProtectedRoute: FC<RouteProps> = ({ children, ...props }: RouteProps ) => {
-    const { user } = useSelector((store: TRootStore) => store.account);
+    const { user } = useAppSelector((store) => store.account);
     return (
         <Route {...props} render={
             ({ location }) => 

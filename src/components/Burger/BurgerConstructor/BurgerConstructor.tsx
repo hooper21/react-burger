@@ -7,7 +7,6 @@ import { getOrderNumber } from "../../../services/DataService";
 import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 
 import { TIngredient } from "../../../utils/types";
-import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { LockIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -18,10 +17,10 @@ import Modal from "../../../ui/Modal/Modal";
 import styles from './BurgerConstructor.module.css';
 
 const BurgerConstructor = () => {
-    const burger = useAppSelector((store: TRootStore) => store.burger);
-    const order = useAppSelector((store: TRootStore) => store.order);
-    const ingredients = useAppSelector((store: TRootStore) => store.ingredients.items);
-    const { user } = useAppSelector((store: TRootStore) => store.account);
+    const burger = useAppSelector((store) => store.burger);
+    const order = useAppSelector((store) => store.order);
+    const ingredients = useAppSelector((store) => store.ingredients.items);
+    const { user } = useAppSelector((store) => store.account);
     const history = useHistory();
     const dispatch = useAppDispatch();
 

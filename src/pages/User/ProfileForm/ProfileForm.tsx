@@ -1,7 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { TUser } from "../../../utils/types";
-import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { updateUserInfo, setUserInfo } from "../../../services/AuthService";
 
@@ -12,7 +11,7 @@ import styles from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   
-    const { user } = useAppSelector((store: TRootStore) => store.account);
+    const { user } = useAppSelector((store) => store.account);
 
     const [ values, setValues ] = useState((user) ? { name: user.name, email: user.email, password: "" } : { name: "", email: "", password: ""})
     const [ changed, setChanged ] = useState(false);

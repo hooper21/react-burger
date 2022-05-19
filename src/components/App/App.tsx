@@ -10,8 +10,6 @@ import { wsConnectionPublicInit } from '../../services/actions/websocket';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import GuestRoute from '../GuestRoute/GuestRoute';
-import { TRootStore } from "../../services/reducers/rootReducer";
-
 import { AppHeader, Spinner } from '../../ui';
 import { HomePage, OrdersFeedPage, IngredientPage, ProfileForm, ProfileOrders, OrderPage, Login, Register, PasswordForgot, PasswordReset, NotFound } from  '../../pages';
 
@@ -24,7 +22,7 @@ function App() {
         dispatch(wsConnectionPublicInit());
     }, [dispatch]);
 
-    const loading: boolean = useAppSelector((store: TRootStore) => (
+    const loading: boolean = useAppSelector((store) => (
         (store.ingredients.loading ?? false) || 
         (store.order.loading ?? false) || 
         (store.account.loading ?? false) || 

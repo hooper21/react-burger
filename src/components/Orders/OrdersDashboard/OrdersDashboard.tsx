@@ -1,7 +1,6 @@
-import { FC, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
+import { FC } from "react";
+import { useAppSelector } from "../../../services/types/hooks";
 import { TOrderInfo } from '../../../utils/types';
-import { TRootStore } from "../../../services/reducers/rootReducer";
 import { TWebSocketState } from '../../../services/actions/websocket';
 
 import styles from './OrdersDashboard.module.css';
@@ -10,7 +9,7 @@ const MAX_ORDERS = 5;
 
 const OrdersDashboard: FC = () => {
     
-    const statistic: TWebSocketState = useAppSelector((store: TRootStore) => store.statistic);
+    const statistic: TWebSocketState = useAppSelector((store) => store.statistic);
     if (!statistic) 
         return null;
 

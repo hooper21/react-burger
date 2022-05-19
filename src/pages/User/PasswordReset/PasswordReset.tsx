@@ -2,7 +2,6 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../services/types/hooks';
 import { Link, useHistory } from 'react-router-dom';
 import { resetPassword } from "../../../services/AuthService";
-import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import { USER_TEST_PASSWORD } from '../../../config';
 
@@ -15,7 +14,7 @@ const PasswordReset = () => {
     const [ values, setValues ] = useState({ token: USER_TEST_PASSWORD, password: USER_TEST_PASSWORD })
 
     const history = useHistory();
-    const { error } = useAppSelector((store: TRootStore) => store.account);
+    const { error } = useAppSelector((store) => store.account);
     const hasError = (error) ? true : false;
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value });
