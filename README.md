@@ -2,6 +2,8 @@
 
 **Please view [my demo page](https://hooper21.github.io/react-burger/) in the browser**
 
+**Please view [my public cloud page](https://hooper21.nomoredomains.xyz/react-burger/) in the browser**
+
 
 # Getting Started with Create React App
 
