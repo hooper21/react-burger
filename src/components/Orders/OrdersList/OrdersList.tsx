@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { FC } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
 import { wsSetCurrentOrder } from "../../../services/actions/websocket";
-import { TOrdersInfo, TOrderInfo } from '../../../utils/types';
+import { TOrderInfo } from '../../../utils/types';
 import { setLocation } from "../../../services/DataService";
 import OrderCard from '../OrderCard/OrderCard';
 import OrderDetails from '../OrderDetails/OrderDetails';

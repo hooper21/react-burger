@@ -1,10 +1,9 @@
 import { FC, useEffect } from 'react';
-import { wsConnectionPublicInit, wsConnectionPrivateInit } from '../../services/actions/websocket';
+import { wsConnectionPublicInit } from '../../services/actions/websocket';
 import { useAppSelector, useAppDispatch } from "../../services/types/hooks";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { TOrderInfo } from "../../utils/types"
-import { TRootStore } from "../../services/reducers/rootReducer";
+import { TOrderInfo } from "../../utils/types";
 
 import OrderDetails from '../../components/Orders/OrderDetails/OrderDetails';
 import { NotFound } from  '..';
@@ -15,7 +14,7 @@ type TParams = {
 
 const OrderPage: FC = () => {
 
-    const { orders, connected, loading } = useAppSelector((store: TRootStore) => store.statistic );
+    const { orders, connected, loading } = useAppSelector((store) => store.statistic );
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (!connected) {

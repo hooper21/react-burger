@@ -1,5 +1,5 @@
 import { STORAGE_USER_KEY } from '../config';
-import { TUser, TUserAccount } from "../utils/types";
+import { TUserAccount } from "../utils/types";
 
 class StorageService {
 

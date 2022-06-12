@@ -1,6 +1,5 @@
 import { FC, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
-import { TRootStore } from "../../../services/reducers/rootReducer";
 import { TWebSocketState, wsConnectionPrivateInit } from '../../../services/actions/websocket';
 
 import ProfileNavigation from "../../../ui/ProfileNavigation/ProfileNavigation";
@@ -9,7 +8,7 @@ import styles from './ProfileOrders.module.css';
 
 const ProfileOrders: FC = () => {
 
-    const orders: TWebSocketState = useAppSelector((store: TRootStore) => store.orders);
+    const orders: TWebSocketState = useAppSelector((store) => store.orders);
 
     const dispatch = useAppDispatch();
     useEffect(() => {

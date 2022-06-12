@@ -11,15 +11,14 @@ import IngredientCard from "../IngredientCard/IngredientCard";
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 import { TIngredient, TKeyedStrings, TKeyedValues } from "../../../utils/types";
-import { TRootStore } from "../../../services/reducers/rootReducer";
 
 import styles from './IngredientsList.module.css';
 
 const IngredientsList = () => {
 
-    const ingredients = useAppSelector((store: TRootStore) => store.ingredients);
+    const ingredients = useAppSelector((store) => store.ingredients);
     const { error, currentTab, selected } = ingredients;
-    const burger = useAppSelector((store: TRootStore) => store.burger);
+    const burger = useAppSelector((store) => store.burger);
     const dispatch = useAppDispatch();
 
     const tabs: TKeyedStrings = {
