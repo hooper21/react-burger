@@ -1,6 +1,7 @@
-## Demo page
+# Demo page
 
-View my [https://hooper21.github.io/react-burger/](demo page) in the browser
+**Please view [my demo page](https://hooper21.github.io/react-burger/) in the browser**
+
 
 # Getting Started with Create React App
 
