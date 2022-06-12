@@ -1,4 +1,4 @@
-#Demo page
+## Demo page
 
 View my [https://hooper21.github.io/react-burger/](demo page) in the browser
 
