@@ -18,7 +18,7 @@ export const burgerReducer = (state = initialState, action: TBurgerActions): TBu
         case ACTION_TYPES.BURGER_REMOVE_BUN:
             return {
                 ...state,
-                bun: null,
+                bun: undefined,
             };
 
         case ACTION_TYPES.BURGER_ADD_INGREDIENT: 

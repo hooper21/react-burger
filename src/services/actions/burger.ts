@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { ACTION_TYPES } from "../action-types";
-import { TBurgerElements } from '../../utils/types'
+import { TBurgerElements } from "../../utils/types";
 
 export interface IClearBurger {
     readonly type: typeof ACTION_TYPES.BURGER_CLEAR;

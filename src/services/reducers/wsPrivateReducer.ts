@@ -1,6 +1,6 @@
 import { ACTION_TYPES } from "../action-types";
 import { TWebSocketActions, TWebSocketState, initialState  } from '../actions/websocket'
-import { TOrderInfo } from '../../utils/types'
+//import { TOrderInfo } from "../../utils/types";
 
 export const wsPrivateReducer = (state = initialState, action: TWebSocketActions): TWebSocketState => {
     

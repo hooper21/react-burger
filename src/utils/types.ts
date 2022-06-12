@@ -1,4 +1,3 @@
-
 export type TIngredient = {
     _id: string,
     name: string,

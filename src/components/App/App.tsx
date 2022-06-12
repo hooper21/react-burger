@@ -17,7 +17,7 @@ function App() {
 
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(restoreUser())
+        dispatch(restoreUser());
         dispatch(getIngredients());
         dispatch(wsConnectionPublicInit());
     }, [dispatch]);
