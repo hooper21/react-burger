@@ -20,7 +20,6 @@ function App() {
     useEffect(() => {
         dispatch(restoreUser())
         dispatch(getIngredients());
-        //dispatch(wsConnectionPublicInit());
     }, [dispatch]);
 
     const loading: boolean = useAppSelector((store) => (

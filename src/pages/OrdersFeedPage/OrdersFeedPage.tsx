@@ -8,7 +8,7 @@ import styles from './OrdersFeedPage.module.css';
 
 const OrdersFeedPage: FC = () => {
 
-    const { orders, connected, loading, error } = useAppSelector((store) => store.statistic );
+    const { orders, connected, loading } = useAppSelector((store) => store.statistic );
     const dispatch = useAppDispatch();
     useEffect(() => {
         if (!connected) {
