@@ -23,9 +23,9 @@ export const restoreUser = () => {
     return (dispatch: AppDispatch) => {
         const user = currentUser();
         dispatch(loginSuccess(user));
-        if (user) {
-            dispatch(wsConnectionPrivateInit());
-        };
+        // if (user) {
+        //     dispatch(wsConnectionPrivateInit());
+        // };
     };
 };
 
@@ -60,7 +60,8 @@ export const logoutUser = (history: any) => {
     return (dispatch: AppDispatch) => {
         Storage.removeUser();
         dispatch(loginSuccess(null));
-        dispatch(wsConnectionClose());
+        // console.log("logoutUser WS close");
+        //dispatch(wsConnectionClose());
         history.replace({ pathname: '/' });
     }
 };

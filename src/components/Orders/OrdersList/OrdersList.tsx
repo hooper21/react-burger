@@ -13,19 +13,19 @@ import styles from "./OrdersList.module.css";
 const MAX_ORDERS = 10;
 
 type TPageProps = {
-    title?: string;
+    title?: string,
+    items: ReadonlyArray<TOrderInfo>,
 };
 
-const OrdersList: FC<TPageProps> = ({title}: TPageProps) => {
+const OrdersList: FC<TPageProps> = ({ title, items }: TPageProps) => {
 
     const dispatch = useAppDispatch();
 
     const isPrivate = !!useRouteMatch("/profile");
 
-    const { orders } = useAppSelector((store: any) => isPrivate ? store.orders : store.statistic );
-    const { selected } = useAppSelector((store: any) => store.statistic );
-    
-    if (!orders)
+    const { selected } = useAppSelector((store) => store.statistic );
+
+    if (!items)
         return null;
 
     const onSelect = (item: TOrderInfo) => {
@@ -56,8 +56,8 @@ const OrdersList: FC<TPageProps> = ({title}: TPageProps) => {
             <ul className={styles.list}>
                 {
                     
-                    (orders.length) ? (
-                        orders.slice(0, MAX_ORDERS).map((item: TOrderInfo) =>
+                    (items.length) ? (
+                        items.slice(0, MAX_ORDERS).map((item: TOrderInfo) =>
                         <li className={styles.card} key={item._id}>
                             <OrderCard item={ item } onClick={onSelect} key={item._id}/>
                         </li>

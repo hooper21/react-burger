@@ -23,11 +23,12 @@ const ProfileForm = () => {
 
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(updateUserInfo());
         if (user) {
             resetValues(user);
+        } else {
+            dispatch(updateUserInfo());
         };
-    }, [dispatch, user]);
+    }, [ dispatch, user ]);
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [event.target.name]: event.target.value });

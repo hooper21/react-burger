@@ -20,15 +20,15 @@ function App() {
     useEffect(() => {
         dispatch(restoreUser())
         dispatch(getIngredients());
-        dispatch(wsConnectionPublicInit());
+        //dispatch(wsConnectionPublicInit());
     }, [dispatch]);
 
     const loading: boolean = useAppSelector((store) => (
         (store.ingredients.loading ?? false) || 
         (store.order.loading ?? false) || 
         (store.account.loading ?? false) || 
-        (store.statistic.loading ?? false) ||
-        (store.orders.loading ?? false) ||
+        //(store.statistic.loading ?? false) ||
+        //(store.orders.loading ?? false) ||
         false
     ));
 

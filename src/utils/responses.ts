@@ -1,4 +1,4 @@
-import { TIngredient, TOrderInfo, TUserAccount } from '../utils/types';
+import { TIngredient, TOrderInfo, TUserAccount, TUser } from '../utils/types';
 
 export type TApiResponce = {
     status: number,
@@ -7,6 +7,7 @@ export type TApiResponce = {
 
 export type TDataResponce = TApiResponce & {
     success: boolean,
+    message?: string,
     data: [],
 };
 
@@ -21,3 +22,5 @@ export type TResponceOrder = TApiResponce & {
 
 
 export type TResponceAccount = TDataResponce & TUserAccount;
+
+export type TResponceRegister = TDataResponce & TUserAccount;

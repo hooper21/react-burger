@@ -11,3 +11,5 @@ export const GUEST_ROUTES: string[] = [ "/login", "/register", "/forgot-password
 export const WSS_URL: string = 'wss://norma.nomoreparties.space';
 export const WSS_USER_ORDERS: string = `${WSS_URL}/orders`;
 export const WSS_ALL_ORDERS: string = `${WSS_URL}/orders/all`;
+
+export const BASE_URL: string = '/react-burger';

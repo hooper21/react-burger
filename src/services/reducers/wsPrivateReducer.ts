@@ -25,6 +25,9 @@ export const wsPrivateReducer = (state = initialState, action: TWebSocketActions
                 error: action.error,
             };
   
+        case ACTION_TYPES.WS_CONNECTION_CLOSED:
+            return initialState;
+  
         case ACTION_TYPES.WS_GET_USER_ORDERS: {
             const { success, orders, total, totalToday } = action.orders;
             return {

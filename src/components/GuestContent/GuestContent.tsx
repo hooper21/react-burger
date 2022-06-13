@@ -1,7 +1,11 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { useAppSelector } from '../../services/types/hooks';
 
-const GuestContent = ({ children }: any) => {
+type TGuestContent ={
+    children: React.ReactNode;
+};
+
+const GuestContent = ({ children }: TGuestContent) => {
     const { user } = useAppSelector((store) => store.account);
     if (user) {
         return null;

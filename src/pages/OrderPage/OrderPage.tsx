@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
-import { wsConnectionPublicInit } from '../../services/actions/websocket';
+import { useRouteMatch } from "react-router-dom";
+import { wsConnectionPublicInit, wsConnectionClose } from '../../services/actions/websocket';
 import { useAppSelector, useAppDispatch } from "../../services/types/hooks";
 import { useParams } from "react-router-dom";
 
@@ -14,21 +15,29 @@ type TParams = {
 
 const OrderPage: FC = () => {
 
-    const { orders, connected, loading } = useAppSelector((store) => store.statistic );
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        if (!connected) {
-            dispatch(wsConnectionPublicInit());
-        };
-    }, [ dispatch, connected ]);
-
     const { id } = useParams<TParams>();
 
-    if (!connected || loading) {
+    const isPrivate = !!useRouteMatch("/profile");
+    const { orders, connected, loading, error, selected } = useAppSelector((store) => isPrivate ? store.orders : store.statistic );
+
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        if ( !connected && !loading && !error) {
+            dispatch(wsConnectionPublicInit());
+        };
+    }, [ dispatch, connected, loading, error ]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(wsConnectionClose());
+        };
+    }, []);
+
+    if ( !connected || loading ) {
         return null;
     };
-    
-    const order = (orders) ? orders.find((item: TOrderInfo) => item._id === id) : null;
+
+    const order = selected ?? ( (orders) ? orders.find((item: TOrderInfo) => item._id === id) : null );
 
     return (
         (order) ? (
