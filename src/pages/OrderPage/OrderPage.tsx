@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useRouteMatch } from "react-router-dom";
-import { wsConnectionPublicInit, wsConnectionClose } from '../../services/actions/websocket';
+import { wsConnectionPublicInit, wsConnectionPrivateInit, wsConnectionClose } from '../../services/actions/websocket';
 import { useAppSelector, useAppDispatch } from "../../services/types/hooks";
 import { useParams } from "react-router-dom";
 
@@ -23,7 +23,10 @@ const OrderPage: FC = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         if ( !connected && !loading && !error) {
-            dispatch(wsConnectionPublicInit());
+            if (isPrivate)
+                dispatch(wsConnectionPrivateInit());
+            else
+                dispatch(wsConnectionPublicInit());
         };
     }, [ dispatch, connected, loading, error ]);
 
@@ -33,11 +36,13 @@ const OrderPage: FC = () => {
         };
     }, []);
 
-    if ( !connected || loading ) {
+    if ( !connected || loading || error ) {
         return null;
     };
 
     const order = selected ?? ( (orders) ? orders.find((item: TOrderInfo) => item._id === id) : null );
+
+    //console.log("OrderPage", id, order, selected);
 
     return (
         (order) ? (
