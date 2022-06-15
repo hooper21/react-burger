@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
-import { TRootStore } from "../../../services/reducers/rootReducer";
-import { TWebSocketState, wsConnectionPrivateInit } from '../../../services/actions/websocket';
+import {  wsConnectionPrivateInit, wsConnectionClose } from '../../../services/actions/websocket';
 
 import ProfileNavigation from "../../../ui/ProfileNavigation/ProfileNavigation";
 import OrdersList from '../../../components/Orders/OrdersList/OrdersList';
@@ -9,22 +8,28 @@ import styles from './ProfileOrders.module.css';
 
 const ProfileOrders: FC = () => {
 
-    const orders: TWebSocketState = useAppSelector((store: TRootStore) => store.orders);
-
+    const { orders, connected, loading, error } = useAppSelector((store) => store.orders );
     const dispatch = useAppDispatch();
     useEffect(() => {
-        if (!orders.connected) {
+        if ( !connected && !loading && !error ) {
             dispatch(wsConnectionPrivateInit());
         };
-    }, [ dispatch, orders.connected ]);
+    }, [ dispatch, connected, loading, error ]);
 
-    if (!orders.orders) 
+    useEffect(() => {
+        return () => {
+            dispatch(wsConnectionClose());
+        };
+    }, []);
+
+    if ( !connected || loading ) {
         return null;
+    };
 
     return (
         <div className={styles.container + " pr-5 pl-5"}>
             <ProfileNavigation />
-            <OrdersList />
+            <OrdersList items={orders} />
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import { ACTION_TYPES } from "../action-types";
 import { TAccountActions, TAccountState, initialState } from "../actions/account";
-import { TUser } from '../../utils/types';
+// import { TUser } from '../../utils/types';
 
 export const accountReducer = (state = initialState, action: TAccountActions): TAccountState => {
 
@@ -18,7 +18,6 @@ export const accountReducer = (state = initialState, action: TAccountActions): T
                 loading: false,
                 error: action.error,
             };
-
 
         case ACTION_TYPES.LOGIN_SUCCESS:
             return {
@@ -52,13 +51,6 @@ export const accountReducer = (state = initialState, action: TAccountActions): T
             };
         
         case ACTION_TYPES.GET_USER_INFO_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                error: undefined,
-            };
-        
-        case ACTION_TYPES.SET_USER_INFO_SUCCESS:
             return {
                 user: (action.user) ? { ...state.user, ...action.user} : null,
                 loading: false,

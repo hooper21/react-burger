@@ -11,6 +11,7 @@ export const socketMiddleware = (url: string, isPrivate: boolean, actions: TWebS
         let socket: WebSocket | null = null;
 
         return next => (action: AnyAction) => {
+
             const token: string = isPrivate ? Storage.getLocalAccessToken()?.replace("Bearer", "").trim() : null;
             if (isPrivate && !token) {
                 next(action);
@@ -31,7 +32,6 @@ export const socketMiddleware = (url: string, isPrivate: boolean, actions: TWebS
                 const params = token ? `?token=${token}` : "";
                 const wsUrl = `${url}${params}`;
                 socket = new WebSocket(wsUrl);
-                // console.log("WebSocket open", wsUrl);
             };
             
             if (socket) {

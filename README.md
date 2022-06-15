@@ -1,3 +1,10 @@
+# Demo page
+
+**Please view [my demo page](https://hooper21.github.io/react-burger/) in the browser**
+
+**Please view [my public cloud page](https://hooper21.nomoredomains.xyz/react-burger/) in the browser**
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

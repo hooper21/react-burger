@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { FC } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../../services/types/hooks";
 import { wsSetCurrentOrder } from "../../../services/actions/websocket";
-import { TOrdersInfo, TOrderInfo } from '../../../utils/types';
+import { TOrderInfo } from '../../../utils/types';
 import { setLocation } from "../../../services/DataService";
 import OrderCard from '../OrderCard/OrderCard';
 import OrderDetails from '../OrderDetails/OrderDetails';
@@ -13,19 +13,19 @@ import styles from "./OrdersList.module.css";
 const MAX_ORDERS = 10;
 
 type TPageProps = {
-    title?: string;
+    title?: string,
+    items: ReadonlyArray<TOrderInfo>,
 };
 
-const OrdersList: FC<TPageProps> = ({title}: TPageProps) => {
+const OrdersList: FC<TPageProps> = ({ title, items }: TPageProps) => {
 
     const dispatch = useAppDispatch();
 
     const isPrivate = !!useRouteMatch("/profile");
 
-    const { orders } = useAppSelector((store: any) => isPrivate ? store.orders : store.statistic );
-    const { selected } = useAppSelector((store: any) => store.statistic );
-    
-    if (!orders)
+    const { selected } = useAppSelector((store) => store.statistic );
+
+    if (!items)
         return null;
 
     const onSelect = (item: TOrderInfo) => {
@@ -56,8 +56,8 @@ const OrdersList: FC<TPageProps> = ({title}: TPageProps) => {
             <ul className={styles.list}>
                 {
                     
-                    (orders.length) ? (
-                        orders.slice(0, MAX_ORDERS).map((item: TOrderInfo) =>
+                    (items.length) ? (
+                        items.slice(0, MAX_ORDERS).map((item: TOrderInfo) =>
                         <li className={styles.card} key={item._id}>
                             <OrderCard item={ item } onClick={onSelect} key={item._id}/>
                         </li>

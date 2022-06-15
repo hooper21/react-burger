@@ -3,6 +3,7 @@ import { getOrderRequest, getOrderSuccess, getOrderFailed } from "./actions/orde
 import http from "./HttpProvider";
 import { AppDispatch } from './types';
 import { TResponceIngredients } from '../utils/responses';
+import { BASE_URL } from "./../config";
 
 
 export const getIngredients = () => {
@@ -53,5 +54,5 @@ export const redirectTo = (url: (string | Location) & Location) => {
 };
 
 export const setLocation = (url: string) => {
-    window.history.pushState({}, "", url);
+    window.history.pushState({}, "", `${BASE_URL}${url}`);
 };

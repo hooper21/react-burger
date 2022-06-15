@@ -1,6 +1,6 @@
 import { ACTION_TYPES } from "../action-types";
 import { TWebSocketActions, TWebSocketState, initialState  } from '../actions/websocket'
-import { TOrderInfo } from '../../utils/types'
+//import { TOrderInfo } from "../../utils/types";
 
 export const wsPrivateReducer = (state = initialState, action: TWebSocketActions): TWebSocketState => {
     
@@ -24,6 +24,9 @@ export const wsPrivateReducer = (state = initialState, action: TWebSocketActions
                 loading: false,
                 error: action.error,
             };
+  
+        case ACTION_TYPES.WS_CONNECTION_CLOSED:
+            return initialState;
   
         case ACTION_TYPES.WS_GET_USER_ORDERS: {
             const { success, orders, total, totalToday } = action.orders;
